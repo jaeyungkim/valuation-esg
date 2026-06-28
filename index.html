@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valuation — Discount Rates, the SDF &amp; ESG · Summer ESG Module</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..700&family=Newsreader:ital,opsz,wght@0,6..72,300..600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f7f2e7; --card:#fcf9f1; --ink:#23201a; --ink-soft:#5b5346; --ink-faint:#938a78;
+  --rule:rgba(35,32,26,.14); --gold:#a9791f; --teal:#2c6e91; --green:#2f7d54;
+  --display:"Fraunces",Georgia,serif; --body:"Newsreader",Georgia,serif; --mono:"IBM Plex Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:19px;line-height:1.62;
+  background-image:radial-gradient(140% 55% at 50% 0%,#fbf7ee,#f7f2e7 55%);background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.wrap{max-width:52rem;margin:0 auto;padding:11vh 28px 14vh}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+h1{font-family:var(--display);font-weight:560;font-size:clamp(38px,6.5vw,62px);line-height:1.0;letter-spacing:-.022em}
+h1 em{font-style:italic;color:var(--gold)}
+.dek{font-size:21px;color:var(--ink-soft);margin-top:20px;font-style:italic;max-width:40ch;line-height:1.4}
+.banner{margin-top:30px;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:18px 22px;font-size:17px;color:var(--ink-soft);line-height:1.5}
+.banner b{color:var(--ink)}
+h2{font-family:var(--mono);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);margin:6vh 0 18px;padding-bottom:9px;border-bottom:1px solid var(--rule)}
+.grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:680px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:24px 24px 20px;display:flex;flex-direction:column}
+.card .k{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.card h3{font-family:var(--display);font-weight:560;font-size:24px;line-height:1.1;margin-bottom:8px}
+.card p{font-size:16px;color:var(--ink-soft);line-height:1.5;flex:1}
+.links{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.links a{font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-decoration:none;color:var(--teal);
+  border:1px solid rgba(44,110,145,.4);padding:8px 14px;border-radius:30px;transition:.18s}
+.links a:hover{background:var(--teal);color:var(--card)}
+.links a.soon{color:var(--ink-faint);border-color:var(--rule);pointer-events:none}
+.soonnote{font-family:var(--mono);font-size:12px;color:var(--ink-faint);margin-top:14px;letter-spacing:.03em}
+footer{margin-top:8vh;border-top:1px solid var(--rule);padding-top:24px;font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.03em;line-height:1.9}
+footer b{color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Summer ESG Module · Valuation</div>
+  <h1>Why Value <em>Moves</em></h1>
+  <div class="dek">Discount rates, the stochastic discount factor, and where ESG enters — then a real valuation: SpaceX.</div>
+  <div class="banner">These are the <b>pre-class</b> materials — the framework, the questions, and the readings to prepare with.
+  The full lecture, the worked SpaceX valuation, and the model are released <b>after each session</b>.</div>
+
+  <h2>The theory lecture</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="k">Lecture · pre-class</div>
+      <h3>Why value moves</h3>
+      <p>The discount-rate framework — the SDF, why valuations move on discount rates rather than growth, and where ESG enters. Read it before class and commit to the predictions. (The empirical answers are revealed in the session.)</p>
+      <div class="links"><a href="valuation_theory_preclass.html">Open webpage →</a><a href="Valuation_Theory_2026_preclass.pdf">Slides (PDF)</a></div>
+      <div class="soonnote">◆ Full version &amp; the written readings released after class.</div>
+    </div>
+    <div class="card">
+      <div class="k">Reading list</div>
+      <h3>What to read</h3>
+      <p>The asset-pricing papers behind the lecture — Cochrane, Pástor–Stambaugh–Taylor, Bolton–Kacperczyk, Pedersen — with free working-paper links where available.</p>
+      <div class="links"><a href="reading_list_valuation.html">Open reading list →</a></div>
+    </div>
+  </div>
+
+  <h2>The valuation practice</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="k">Case · pre-class</div>
+      <h3>Valuing SpaceX</h3>
+      <p>A real, just-listed company, valued from the ground up — a sum-of-the-parts DCF with ESG in the discount rate. The setup, the data, and the questions to work through before the session. (The valuation and verdicts are built in class.)</p>
+      <div class="links"><a href="spacex_valuation_preclass.html">Open webpage →</a><a href="SpaceX_Valuation_2026_preclass.pdf">Slides (PDF)</a></div>
+      <div class="soonnote">◆ Full valuation, written reading &amp; the model released after class.</div>
+    </div>
+    <div class="card" style="opacity:.7">
+      <div class="k">After class</div>
+      <h3>Full materials</h3>
+      <p>The complete lecture and the worked SpaceX valuation — with the evidence, the verdicts, and the model — will appear here once each session has run.</p>
+      <div class="links"><a class="soon">Released after class</a></div>
+    </div>
+  </div>
+
+  <footer>
+    Summer ESG Module · Valuation · Why Value Moves<br>
+    <b>Jae Yung Kim</b> · University of Exeter Business School · 2026
+  </footer>
+</div>
+</body>
+</html>

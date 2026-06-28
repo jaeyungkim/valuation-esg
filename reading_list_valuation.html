@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading List — Valuation: Discount Rates, the SDF &amp; ESG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f7f2e7; --card:#fcf9f1; --ink:#23201a; --ink-soft:#5b5346; --ink-faint:#938a78;
+  --rule:rgba(35,32,26,.14); --gold:#a9791f; --teal:#2c6e91; --green:#2f7d54;
+  --display:"Fraunces",Georgia,serif; --body:"Newsreader",Georgia,serif; --mono:"IBM Plex Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:19px;line-height:1.6;
+  background-image:radial-gradient(140% 60% at 50% 0%,#fbf7ee,#f7f2e7 55%);background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.wrap{max-width:50rem;margin:0 auto;padding:9vh 28px 14vh}
+header{margin-bottom:5vh}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+h1{font-family:var(--display);font-weight:560;font-size:clamp(34px,6vw,52px);line-height:1.02;letter-spacing:-.02em}
+h1 em{font-style:italic;color:var(--gold)}
+.sub{font-size:20px;color:var(--ink-soft);margin-top:18px;font-style:italic;max-width:42ch;line-height:1.4}
+.note{font-size:16px;color:var(--ink-soft);margin-top:26px;border-left:2px solid var(--gold);padding:4px 0 4px 20px;line-height:1.55}
+.note b{color:var(--ink)}
+h2{font-family:var(--display);font-weight:560;font-size:28px;margin:7vh 0 6px;letter-spacing:-.01em}
+h2 .c{font-family:var(--mono);font-size:13px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.lede{color:var(--ink-soft);font-size:17px;margin-bottom:20px}
+ol{list-style:none;counter-reset:r}
+li{counter-increment:r;position:relative;padding:16px 0 16px 46px;border-bottom:1px solid var(--rule)}
+li::before{content:counter(r,decimal-leading-zero);position:absolute;left:0;top:18px;font-family:var(--mono);font-size:12px;color:var(--gold)}
+.au{font-weight:600;color:var(--ink)}
+.ti{color:var(--ink)}
+.jr{font-style:italic;color:var(--ink-soft)}
+.meta{display:block;margin-top:5px;font-family:var(--mono);font-size:12.5px;letter-spacing:.02em}
+a{color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(44,110,145,.3)}
+a:hover{border-color:var(--teal)}
+.tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  padding:2px 7px;border-radius:3px;margin-right:8px;vertical-align:1px}
+.t-free{background:rgba(47,125,84,.14);color:var(--green)}
+.t-pay{background:rgba(169,121,31,.16);color:var(--gold)}
+.t-book{background:rgba(35,32,26,.07);color:var(--ink-faint)}
+details{margin-top:8vh;background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:18px 22px}
+summary{font-family:var(--mono);font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);cursor:pointer}
+pre{white-space:pre-wrap;font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);margin-top:16px;line-height:1.6}
+footer{margin-top:8vh;font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.03em;line-height:1.8;border-top:1px solid var(--rule);padding-top:24px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Summer ESG Module · Valuation · Reading List</div>
+  <h1>Why Value <em>Moves</em></h1>
+  <div class="sub">The asset-pricing papers behind the theory — discount rates, the SDF, and where ESG enters — plus the method behind the SpaceX practice.</div>
+  <div class="note">Readings are drawn from the leading economics and finance journals; foundational books are
+  included where they are the original source. <b>Core</b> readings are the spine of the lecture; <b>further</b>
+  readings deepen the predictability evidence and the valuation method.
+  Tags: <span class="tag t-free">free</span> open / working-paper version available ·
+  <span class="tag t-pay">journal</span> via the library · <span class="tag t-book">book</span>.</div>
+</header>
+
+<h2><span class="c">Core readings</span><br>Start here</h2>
+<p class="lede">Eight sources: the discount-rate framework, the CAPM behind the WACC, and the four papers that price ESG.</p>
+<ol>
+<li><span class="au">Cochrane, J. H. (2011).</span> <span class="ti">Presidential Address: Discount Rates.</span> <span class="jr">Journal of Finance</span> 66(4).
+  <span class="meta"><span class="tag t-free">free</span><a href="https://www.nber.org/papers/w16972">NBER w16972</a> · the spine — valuations move on discount rates, not growth</span></li>
+<li><span class="au">Campbell, J. Y. &amp; Shiller, R. J. (1988).</span> <span class="ti">The Dividend–Price Ratio and Expectations of Future Dividends and Discount Factors.</span> <span class="jr">Review of Financial Studies</span> 1(3).
+  <span class="meta"><span class="tag t-free">free</span><a href="https://scholar.google.com/scholar?q=Dividend-Price+Ratio+Expectations+of+Future+Dividends+and+Discount+Factors+Campbell+Shiller+1988">find it</a> · the identity — a high price must forecast returns or growth</span></li>
+<li><span class="au">Sharpe, W. F. (1964).</span> <span class="ti">Capital Asset Prices: A Theory of Market Equilibrium under Conditions of Risk.</span> <span class="jr">Journal of Finance</span> 19(3).
+  <span class="meta"><span class="tag t-pay">journal</span><a href="https://scholar.google.com/scholar?q=Capital+Asset+Prices+A+Theory+of+Market+Equilibrium+Sharpe+1964">find it</a> · the CAPM behind the cost of equity and the WACC</span></li>
+<li><span class="au">Pástor, Ľ., Stambaugh, R. F. &amp; Taylor, L. A. (2021).</span> <span class="ti">Sustainable Investing in Equilibrium.</span> <span class="jr">Journal of Financial Economics</span> 142(2).
+  <span class="meta"><span class="tag t-free">free</span><a href="https://www.nber.org/papers/w26549">NBER w26549</a> · the taste channel — green earns a lower cost of capital</span></li>
+<li><span class="au">Pástor, Ľ., Stambaugh, R. F. &amp; Taylor, L. A. (2022).</span> <span class="ti">Dissecting Green Returns.</span> <span class="jr">Journal of Financial Economics</span> 146(2).
+  <span class="meta"><span class="tag t-free">free</span><a href="https://www.nber.org/papers/w28940">NBER w28940</a> · the greenium puzzle — high price now, low future return</span></li>
+<li><span class="au">Bolton, P. &amp; Kacperczyk, M. (2021).</span> <span class="ti">Do Investors Care About Carbon Risk?</span> <span class="jr">Journal of Financial Economics</span> 142(2).
+  <span class="meta"><span class="tag t-free">free</span><a href="https://www.nber.org/papers/w26968">NBER w26968</a> · the carbon premium — on the level of total emissions</span></li>
+<li><span class="au">Pedersen, L. H., Fitzgibbons, S. &amp; Pomorski, L. (2021).</span> <span class="ti">Responsible Investing: The ESG-Efficient Frontier.</span> <span class="jr">Journal of Financial Economics</span> 142(2).
+  <span class="meta"><span class="tag t-free">free</span><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3466417">SSRN</a> · ESG as a signal and as a taste — the frontier</span></li>
+<li><span class="au">Cochrane, J. H. (2005).</span> <span class="ti">Asset Pricing</span> (revised ed.). <span class="jr">Princeton University Press.</span>
+  <span class="meta"><span class="tag t-book">book</span>the stochastic-discount-factor framework, P = E[m·x], in full</span></li>
+</ol>
+
+<h2><span class="c">Further readings</span><br>Go deeper</h2>
+<p class="lede">The evidence that discount rates move — and the valuation method behind the SpaceX practice.</p>
+<ol>
+<li><span class="au">Shiller, R. J. (1981).</span> <span class="ti">Do Stock Prices Move Too Much to be Justified by Subsequent Changes in Dividends?</span> <span class="jr">American Economic Review</span> 71(3).
+  <span class="meta"><span class="tag t-free">free</span><a href="https://scholar.google.com/scholar?q=Do+Stock+Prices+Move+Too+Much+to+be+Justified+by+Subsequent+Changes+in+Dividends+Shiller+1981">find it</a> · excess volatility — where the puzzle begins</span></li>
+<li><span class="au">Fama, E. F. &amp; French, K. R. (1988).</span> <span class="ti">Dividend Yields and Expected Stock Returns.</span> <span class="jr">Journal of Financial Economics</span> 22(1).
+  <span class="meta"><span class="tag t-free">free</span><a href="https://scholar.google.com/scholar?q=Dividend+Yields+and+Expected+Stock+Returns+Fama+French+1988">find it</a> · return predictability from the dividend yield</span></li>
+<li><span class="au">Campbell, J. Y. &amp; Cochrane, J. H. (1999).</span> <span class="ti">By Force of Habit: A Consumption-Based Explanation of Aggregate Stock Market Behavior.</span> <span class="jr">Journal of Political Economy</span> 107(2).
+  <span class="meta"><span class="tag t-free">free</span><a href="https://scholar.google.com/scholar?q=By+Force+of+Habit+Consumption-Based+Explanation+Campbell+Cochrane+1999">find it</a> · why the price of risk is countercyclical</span></li>
+<li><span class="au">Damodaran, A. (2017).</span> <span class="ti">Narrative and Numbers: The Value of Stories in Business.</span> <span class="jr">Columbia University Press.</span>
+  <span class="meta"><span class="tag t-book">book</span><a href="https://pages.stern.nyu.edu/~adamodar/">author's site</a> · story vs numbers — the SpaceX lesson</span></li>
+<li><span class="au">Damodaran, A.</span> <span class="ti">Investment Valuation</span> (3rd ed.). <span class="jr">Wiley.</span>
+  <span class="meta"><span class="tag t-book">book</span><a href="https://pages.stern.nyu.edu/~adamodar/">author's site</a> · the DCF toolkit and sum-of-the-parts</span></li>
+</ol>
+
+<details>
+<summary>Plain-text version (for the ELE reading list / Talis)</summary>
+<pre>CORE
+Cochrane, J. H. (2011). Presidential Address: Discount Rates. Journal of Finance, 66(4), 1047-1108. [NBER w16972]
+Campbell, J. Y. & Shiller, R. J. (1988). The Dividend-Price Ratio and Expectations of Future Dividends and Discount Factors. Review of Financial Studies, 1(3), 195-228.
+Sharpe, W. F. (1964). Capital Asset Prices: A Theory of Market Equilibrium under Conditions of Risk. Journal of Finance, 19(3), 425-442.
+Pastor, L., Stambaugh, R. F. & Taylor, L. A. (2021). Sustainable Investing in Equilibrium. Journal of Financial Economics, 142(2), 550-571. [NBER w26549]
+Pastor, L., Stambaugh, R. F. & Taylor, L. A. (2022). Dissecting Green Returns. Journal of Financial Economics, 146(2), 403-424. [NBER w28940]
+Bolton, P. & Kacperczyk, M. (2021). Do Investors Care About Carbon Risk? Journal of Financial Economics, 142(2), 517-549. [NBER w26968]
+Pedersen, L. H., Fitzgibbons, S. & Pomorski, L. (2021). Responsible Investing: The ESG-Efficient Frontier. Journal of Financial Economics, 142(2), 572-597. [SSRN 3466417]
+Cochrane, J. H. (2005). Asset Pricing (revised ed.). Princeton University Press.
+
+FURTHER
+Shiller, R. J. (1981). Do Stock Prices Move Too Much to be Justified by Subsequent Changes in Dividends? American Economic Review, 71(3), 421-436.
+Fama, E. F. & French, K. R. (1988). Dividend Yields and Expected Stock Returns. Journal of Financial Economics, 22(1), 3-25.
+Campbell, J. Y. & Cochrane, J. H. (1999). By Force of Habit: A Consumption-Based Explanation of Aggregate Stock Market Behavior. Journal of Political Economy, 107(2), 205-251.
+Damodaran, A. (2017). Narrative and Numbers: The Value of Stories in Business. Columbia University Press.
+Damodaran, A. Investment Valuation (3rd ed.). Wiley.</pre>
+</details>
+
+<footer>
+  Summer ESG Module · Valuation · Reading List<br>
+  Jae Yung Kim · University of Exeter Business School · 2026
+</footer>
+</div>
+</body>
+</html>

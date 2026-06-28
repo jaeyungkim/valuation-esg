@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valuing SpaceX — a real, current ESG sum-of-the-parts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0f14; --bg2:#0e141b; --panel:#131c25;
+  --ink:#efe9dc; --ink-soft:#b9b3a6; --ink-faint:#79838f;
+  --rule:rgba(239,233,220,.12); --rule-2:rgba(239,233,220,.22);
+  --gold:#e3ad45; --teal:#62b4da; --green:#76cca2; --coral:#e88a6e; --violet:#b6a7e4;
+  --display:"Fraunces",Georgia,serif; --body:"Newsreader",Georgia,serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --col:46rem;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:21px;line-height:1.62;font-weight:340;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;
+  background-image:radial-gradient(125% 70% at 50% -8%,#13202b 0%,#0b0f14 52%);background-attachment:fixed}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.025;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+::selection{background:rgba(227,173,69,.28);color:#fff}
+#prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:linear-gradient(90deg,var(--gold),var(--teal))}
+#ed{position:fixed;top:15px;right:18px;z-index:60;font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--ink-faint);border:1px solid var(--rule);padding:5px 11px;border-radius:30px;background:rgba(11,15,20,.6);backdrop-filter:blur(8px)}
+#dots{position:fixed;top:50%;right:20px;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:14px;align-items:flex-end}
+#dots a{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);transition:.3s}
+#dots a .t{opacity:0;transform:translateX(6px);transition:.3s;white-space:nowrap}
+#dots a .p{width:22px;height:1px;background:var(--rule-2);transition:.3s}
+#dots a:hover .t,#dots a.on .t{opacity:1;transform:none;color:var(--ink)}
+#dots a.on .p{width:34px;background:var(--gold)}
+@media(max-width:1100px){#dots{display:none}}
+.fx{opacity:0;transform:translateY(30px);transition:opacity 1s cubic-bezier(.16,.7,.2,1),transform 1s cubic-bezier(.16,.7,.2,1)}
+.fx.in{opacity:1;transform:none}
+.fx.d1{transition-delay:.08s}.fx.d2{transition-delay:.16s}.fx.d3{transition-delay:.24s}.fx.d4{transition-delay:.32s}.fx.d5{transition-delay:.4s}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 8vw;position:relative;z-index:2}
+.hero .kick{font-family:var(--mono);font-size:12px;letter-spacing:.36em;text-transform:uppercase;color:var(--gold);margin-bottom:34px}
+.hero h1{font-family:var(--display);font-weight:560;font-size:clamp(46px,9vw,118px);line-height:.95;letter-spacing:-.025em;max-width:14ch}
+.hero h1 em{font-style:italic;color:var(--gold);font-weight:460}
+.hero .sub{font-family:var(--display);font-weight:300;font-style:italic;font-size:clamp(20px,2.8vw,30px);color:var(--ink-soft);margin-top:30px;max-width:32ch;line-height:1.32}
+.hero .by{font-family:var(--mono);font-size:13px;letter-spacing:.05em;color:var(--ink-soft);margin-top:42px;padding-top:22px;border-top:1px solid var(--rule);display:flex;gap:24px;flex-wrap:wrap}
+.hero .by b{color:var(--ink);font-weight:600}
+.hero .ghost{position:absolute;right:3vw;bottom:-7vw;font-family:var(--display);font-weight:300;font-style:italic;font-size:50vw;line-height:1;color:rgba(239,233,220,.018);z-index:-1;pointer-events:none;user-select:none}
+.cue{position:absolute;bottom:32px;left:8vw;font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);display:flex;align-items:center;gap:11px}
+.cue .a{width:1px;height:30px;background:linear-gradient(var(--gold),transparent);animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{opacity:.5;transform:translateY(0)}50%{opacity:1;transform:translateY(7px)}}
+main{position:relative;z-index:2;padding-bottom:14vh}
+.col{max-width:var(--col);margin:0 auto;padding:0 26px}
+.part{min-height:62vh;display:flex;flex-direction:column;justify-content:center;padding:14vh 8vw 8vh;position:relative}
+.part .pn{font-family:var(--mono);font-size:12.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.part h2{font-family:var(--display);font-weight:540;font-size:clamp(34px,6vw,68px);line-height:1.02;letter-spacing:-.02em;max-width:18ch}
+.part h2 em{font-style:italic;color:var(--gold);font-weight:440}
+.part .pl{font-size:clamp(19px,2.2vw,24px);color:var(--ink-soft);margin-top:24px;max-width:42ch;font-weight:300;line-height:1.45}
+.part .pbig{position:absolute;right:6vw;top:50%;transform:translateY(-50%);font-family:var(--display);font-weight:300;font-size:24vh;line-height:1;color:rgba(239,233,220,.03);pointer-events:none}
+.scene{padding:11vh 0}
+.scene.tight{padding:6vh 0}
+.stage{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;gap:13px;margin-bottom:22px;color:var(--ink-faint)}
+.stage .tag{font-weight:600;padding:4px 11px 3px;border-radius:30px;color:#0b0f14;font-size:10.5px;letter-spacing:.16em}
+.stage.predict .tag{background:var(--gold)}.stage.evidence .tag{background:var(--teal)}.stage.verdict .tag{background:var(--green)}.stage.idea .tag{background:var(--violet)}
+.stage .arc{color:var(--ink-soft)}.stage .ln{flex:1;height:1px;background:var(--rule)}
+h3.head{font-family:var(--display);font-weight:540;font-size:clamp(27px,3.8vw,42px);line-height:1.08;letter-spacing:-.015em;max-width:20ch}
+h3.head em{font-style:italic;color:var(--gold);font-weight:440}
+.lede{font-size:clamp(21px,2.4vw,26px);line-height:1.45;color:var(--ink);font-weight:340;margin-top:6px}
+p{margin-top:22px;color:var(--ink-soft)}
+.scene strong,p strong{color:var(--ink);font-weight:600}em{font-style:italic}
+.hl{color:var(--gold);font-weight:500}.hl-t{color:var(--teal);font-weight:500}.hl-g{color:var(--green);font-weight:500}.hl-c{color:var(--coral);font-weight:500}
+.mono{font-family:var(--mono);font-size:.84em}
+.cite{font-family:var(--mono);font-size:.66em;color:var(--ink-faint);letter-spacing:.02em;white-space:nowrap}
+.bignum{text-align:center;padding:5vh 0 2vh}
+.bignum .n{font-family:var(--display);font-weight:300;font-size:clamp(70px,15vw,200px);line-height:.86;letter-spacing:-.03em;color:var(--gold);font-style:italic}
+.bignum .cap{font-size:20px;color:var(--ink-soft);margin-top:18px;max-width:34ch;margin-left:auto;margin-right:auto;line-height:1.4}
+.eqhero{text-align:center;padding:4vh 0}
+.eqhero .e{font-family:var(--mono);font-size:clamp(20px,3.2vw,34px);color:var(--ink);letter-spacing:.01em}
+.eqhero .e .b{color:var(--gold)}
+.eqhero .cap{font-family:var(--mono);font-size:14px;color:var(--ink-faint);letter-spacing:.04em;margin-top:20px}
+.cluster{display:grid;gap:1px;margin-top:28px;background:var(--rule);border:1px solid var(--rule);border-radius:11px;overflow:hidden}
+@media(min-width:740px){.cluster.c3{grid-template-columns:repeat(3,1fr)}.cluster.c2{grid-template-columns:repeat(2,1fr)}.cluster.c4{grid-template-columns:repeat(4,1fr)}}
+.cluster .it{background:var(--bg2);padding:21px 23px}
+.cluster .it .l{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.cluster .it .d{font-size:16.5px;color:var(--ink-soft);line-height:1.42}
+.cluster .it .d b{color:var(--ink)}
+.cluster .it.tealk .l{color:var(--teal)}.cluster .it.coralk .l{color:var(--coral)}.cluster .it.violetk .l{color:var(--violet)}.cluster .it.greenk .l{color:var(--green)}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}
+.chips .c{font-family:var(--mono);font-size:13px;letter-spacing:.03em;color:var(--ink);border:1px solid var(--rule-2);border-radius:30px;padding:8px 16px;background:rgba(19,28,37,.55)}
+.chips .c b{color:var(--gold);font-weight:600;margin-right:5px}
+.predict-box{border-left:2px solid var(--gold);padding:4px 0 4px 26px;margin-top:30px}
+.predict-box .q{font-family:var(--display);font-weight:300;font-style:italic;font-size:clamp(23px,3vw,32px);line-height:1.28;color:var(--ink)}
+.predict-box .opts{font-family:var(--mono);font-size:15px;color:var(--ink-faint);margin-top:18px;letter-spacing:.02em;line-height:1.9}
+.predict-box .opts b{color:var(--gold);font-weight:600}
+.verdict-line{font-family:var(--display);font-weight:300;font-size:clamp(28px,4.6vw,52px);line-height:1.14;letter-spacing:-.015em;color:var(--ink);max-width:24ch}
+.verdict-line .em{font-style:italic;color:var(--green)}
+.verdict-sub{font-size:19px;color:var(--ink-soft);margin-top:22px;max-width:46ch;line-height:1.5}
+blockquote{font-family:var(--display);font-weight:300;font-style:italic;font-size:clamp(26px,4vw,44px);line-height:1.18;color:var(--ink);text-align:center;max-width:24ch;margin:6vh auto}
+figure{margin:8vh 0}
+figure.hero-fig{width:min(94vw,920px);position:relative;left:50%;margin-left:calc(min(94vw,920px)/-2)}
+.chartbox{background:linear-gradient(180deg,rgba(19,28,37,.9),rgba(14,20,27,.9));border:1px solid var(--rule);border-radius:12px;padding:30px 28px 20px;box-shadow:0 30px 80px -40px rgba(0,0,0,.8)}
+.chartbox svg{width:100%;max-width:640px;height:auto;overflow:visible;display:block;margin:0 auto}
+figure.hero-fig .chartbox svg{max-width:820px}
+figcaption{font-size:16px;color:var(--ink-soft);margin-top:18px;line-height:1.5;max-width:64ch;margin-left:auto;margin-right:auto;text-align:left}
+figcaption .fn{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-right:8px}
+.tablewrap{margin:5vh 0;overflow-x:auto}
+table.data{width:100%;border-collapse:collapse;font-size:18px}
+table.data caption{caption-side:top;text-align:left;font-size:15px;color:var(--ink-soft);margin-bottom:14px;line-height:1.5}
+table.data caption .fn{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-right:7px}
+table.data th{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);text-align:left;font-weight:500;padding:0 15px 11px;border-bottom:1px solid var(--rule-2)}
+table.data td{padding:12px 15px;border-bottom:1px solid var(--rule);color:var(--ink-soft);line-height:1.3}
+table.data tr:last-child td{border-bottom:none}
+table.data td b{color:var(--ink)}
+table.data td.num{font-family:var(--mono);text-align:right;color:var(--ink);font-size:15px;white-space:nowrap}
+table.data tr.tot td{border-top:1px solid var(--rule-2);border-bottom:none}
+.num.up{color:var(--green)}.num.dn{color:var(--coral)}.num.key{color:var(--gold)}
+.reveal-gate{border:1px dashed var(--rule-2);border-radius:12px;padding:34px;text-align:center;margin:4vh 0;background:rgba(19,28,37,.4)}
+.reveal-gate .gl{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.reveal-gate .gt{font-family:var(--display);font-style:italic;font-size:24px;color:var(--ink);font-weight:300}
+.reveal-gate button{margin-top:20px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);background:transparent;border:1px solid var(--gold);padding:11px 22px;border-radius:30px;cursor:pointer;transition:.2s}
+.reveal-gate button:hover{background:var(--gold);color:#0b0f14}
+.answer.hide{display:none}
+.chart .ax{stroke:var(--rule-2);stroke-width:1.3;fill:none}
+.chart .zero{stroke:var(--rule-2);stroke-width:1;stroke-dasharray:2 3}
+.chart .axlbl{font-family:var(--mono);font-size:12px;fill:var(--ink-faint);letter-spacing:.03em}
+.chart .vlbl{font-family:var(--mono);font-size:14px;font-weight:600}
+.chart .clbl{font-family:var(--body);font-size:14px;fill:var(--ink-soft)}
+.chart .note{font-family:var(--body);font-size:13px;font-style:italic}
+.bar{transform:scaleY(0);transform-box:fill-box}.bar.pos{transform-origin:bottom}.bar.neg{transform-origin:top}
+.in .bar{animation:bg .9s cubic-bezier(.18,.85,.3,1) forwards}@keyframes bg{to{transform:scaleY(1)}}
+.draw{stroke-dasharray:2600;stroke-dashoffset:2600}.in .draw{animation:dr 1.3s ease .15s forwards}@keyframes dr{to{stroke-dashoffset:0}}
+.cpop{opacity:0;transform:translateY(8px)}.in .cpop{animation:cp .7s ease forwards}@keyframes cp{to{opacity:1;transform:none}}
+footer{padding:14vh 8vw 12vh;text-align:center;color:var(--ink-faint);font-family:var(--mono);font-size:13px;letter-spacing:.04em;line-height:2}
+footer .big{font-family:var(--display);font-style:italic;font-size:clamp(26px,4vw,40px);color:var(--ink);margin-bottom:24px;letter-spacing:-.01em}
+@media(max-width:680px){body{font-size:19px}.scene{padding:8vh 0}.part{padding:10vh 7vw 6vh}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<div id="ed">Full edition</div>
+<nav id="dots"></nav>
+
+<header class="hero" data-dot="Open">
+  <div class="kick fx in">Summer ESG Module · Valuation · Practice</div>
+  <h1 class="fx in d1">Valuing <em>SpaceX</em></h1>
+  <div class="sub fx in d2">A real, current, public sum-of-the-parts — and what the price makes you believe.</div>
+  <div class="by fx in d3"><span><b>Jae Yung Kim</b></span><span>University of Exeter</span><span>2026</span></div>
+  <div class="ghost">X</div>
+  <div class="cue fx in d4"><span class="a"></span>Scroll</div>
+</header>
+
+<main>
+
+<!-- ===================== PROLOGUE ===================== -->
+<section class="part" data-dot="Prologue">
+  <div class="pn fx">Prologue</div>
+  <h2 class="fx d1">The biggest IPO <em>in history</em> — last month</h2>
+  <div class="pl fx d2">On 12 June 2026 SpaceX priced at $135, popped 19%, and now trades around $153 — about <b style="color:var(--ink)">$2.0 trillion</b> of equity, on $18.7bn of revenue and a $4.9bn net loss.</div>
+  <div class="pbig">$2T</div>
+</section>
+
+<div class="col">
+  <section class="scene">
+    <div class="stage predict fx"><span class="tag">Predict</span><span class="arc">commit before you scroll</span><span class="ln"></span></div>
+    <p class="lede fx d1">You are an analyst the morning after the IPO. The S-1 is on your desk; the tape says <strong>$153</strong>.</p>
+    <div class="predict-box fx d2">
+      <div class="q">Is SpaceX at $153 cheap, about right, or expensive on the fundamentals — and if it's expensive, <em>what would you have to believe?</em></div>
+      <div class="opts">107× sales &nbsp;·&nbsp; a $4.9bn loss &nbsp;·&nbsp; one founder, <b>82.4%</b> of the vote</div>
+    </div>
+    <p class="fx d3 mono" style="color:var(--ink-faint);font-size:15px">We build the valuation from the filing, segment by segment, and test your answer.</p>
+  </section>
+</div>
+
+<!-- ===================== PART 1 — THREE BUSINESSES ===================== -->
+<section class="part" data-dot="1 · Three businesses">
+  <div class="pn fx">Part One</div>
+  <h2 class="fx d1">One filing, <em>three businesses</em></h2>
+  <div class="pl fx d2">After xAI merged in, SPCX reports three segments — exactly the cut a valuation wants.</div>
+</section>
+
+<div class="col">
+  <section class="scene tight">
+    <div class="cluster c3 fx">
+      <div class="it tealk"><div class="l">Connectivity · Starlink</div><div class="d"><b>$11.4bn</b> revenue, <b>+$4.4bn</b> operating income, 63% EBITDA margin. The <b>cash engine</b>.</div></div>
+      <div class="it"><div class="l">Space · launch + Dragon</div><div class="d"><b>$4.1bn</b> revenue, near break-even. Starship is the option. The <b>franchise</b>.</div></div>
+      <div class="it coralk"><div class="l">AI · xAI / Grok</div><div class="d"><b>$3.2bn</b> revenue, <b>−$6.4bn</b> operating loss, $12.7bn capex. The <b>swing factor</b>.</div></div>
+    </div>
+    <p class="fx d1">Three businesses, three risk profiles, three discount rates. We value each, then add them up.</p>
+  </section>
+
+  <section class="scene">
+    <div class="stage evidence fx"><span class="tag">Evidence</span><span class="arc">the shape of the firm</span><span class="ln"></span></div>
+    <h3 class="head fx d1">Starlink is most of the revenue — and <em>almost all</em> of the profit</h3>
+    <figure class="hero-fig fx d2"><div class="chartbox"><div class="chart-slot" data-chart="segrev"></div></div>
+      <figcaption><span class="fn">Fig 1</span>FY2025 revenue (filled) vs Adjusted EBITDA (marker) by segment. AI earns less and <em>burns</em> more: a −$1.2bn EBITDA on $12.7bn of capex. <span class="cite">SEC S-1/A #2, CIK 0001181412</span></figcaption>
+    </figure>
+    <div class="cluster c3 fx">
+      <div class="it"><div class="l">Starlink prints cash</div><div class="d">2025 operating income <b>+$4.4bn</b>; <b>10.3m</b> subscribers (Mar 2026), +105% YoY.</div></div>
+      <div class="it coralk"><div class="l">AI consumes it</div><div class="d">2025 capex <b>$12.7bn</b> on $3.2bn of revenue; the IPO's first use of proceeds is "AI compute."</div></div>
+      <div class="it"><div class="l">Net, the firm burns</div><div class="d">OCF +$6.8bn, capex −$20.7bn → free cash flow <b>−$14.0bn</b>. Starlink funds the burn.</div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== PART 2 — METHOD ===================== -->
+<section class="part" data-dot="2 · Method">
+  <div class="pn fx">Part Two</div>
+  <h2 class="fx d1">How to <em>value</em> it</h2>
+  <div class="pl fx d2">A sum-of-the-parts DCF: each segment at its own discount rate, summed, bridged to equity, tested against the price.</div>
+</section>
+
+<div class="col">
+  <section class="scene tight">
+    <figure class="fx"><div class="eqhero">
+      <div class="e">FCF = <span class="b">EBIT(1−τ)</span> + D&amp;A − capex − ΔNWC&nbsp;&nbsp;→&nbsp;&nbsp;EV = Σ <span class="b">FCF<sub>t</sub></span>/(1+r)<sup>t</sup> + TV/(1+r)<sup>10</sup></div>
+      <div class="cap">NOPAT carries an NOL shield · terminal value floored at zero · ESG enters through r</div>
+    </div></figure>
+    <div class="chips fx">
+      <span class="c"><b>Starlink</b> 10-yr DCF, the anchor</span>
+      <span class="c"><b>Space</b> base DCF + Starship as a real option</span>
+      <span class="c"><b>AI</b> scenario-driven — the swing</span>
+      <span class="c"><b>Bridge</b> ΣEV → equity ÷ 13.08bn shares</span>
+    </div>
+  </section>
+
+  <section class="scene tight">
+    <h3 class="head fx">Three businesses, <em>three discount rates</em></h3>
+    <div class="tablewrap fx d1"><table class="data">
+      <caption><span class="fn">WACC</span>(1−w<sub>d</sub>)·[r<sub>f</sub> + β·ERP] + w<sub>d</sub>·r<sub>d</sub>(1−T<sub>c</sub>) + ESG nudge. &nbsp;r<sub>f</sub>=4.3%, ERP=5%. Illustrative teaching marks.</caption>
+      <thead><tr><th>Segment</th><th>β</th><th>ESG nudge</th><th>WACC</th><th>why</th></tr></thead>
+      <tbody>
+        <tr><td><b class="hl-t">Connectivity</b></td><td class="num">1.00</td><td class="num">−20 bp</td><td class="num key">8.98%</td><td>stable subs; digital-access (S) discount</td></tr>
+        <tr><td><b>Space</b></td><td class="num">1.30</td><td class="num">+30 bp</td><td class="num key">10.99%</td><td>lumpy; launch emissions, debris (E)</td></tr>
+        <tr><td><b class="hl-c">AI</b></td><td class="num">1.55</td><td class="num">+20 bp</td><td class="num key">12.18%</td><td>speculative; governance (G) premium</td></tr>
+      </tbody>
+    </table></div>
+    <p class="fx mono" style="color:var(--ink-faint);font-size:14px">The theory's two channels, in one table: Starlink's −20 bp is a <em>taste</em> discount (Pástor–Stambaugh–Taylor, JFE 2021); Space's +30 bp and AI's +20 bp are <em>risk</em> premia — carbon/externality (à la Bolton–Kacperczyk, JFE 2021) and governance. Small <em>by design</em> — hold that thought.</p>
+  </section>
+</div>
+
+<!-- ===================== PART 3 — THE PARTS ===================== -->
+<section class="part" data-dot="3 · The parts">
+  <div class="pn fx">Part Three</div>
+  <h2 class="fx d1">Valuing the <em>parts</em></h2>
+  <div class="pl fx d2">Starlink the anchor; Space plus a Starship option; AI as the swing.</div>
+</section>
+
+<div class="col">
+  <section class="scene">
+    <div class="stage evidence fx"><span class="tag">Evidence</span><span class="arc">the anchor</span><span class="ln"></span></div>
+    <h3 class="head fx d1"><span class="hl-t">Starlink</span> — the cash engine carries the firm</h3>
+    <p class="fx d2">Subscribers grow into the tens of millions; ARPU keeps <em>falling</em> ($99 → $66 → …); margins expand toward a utility-like 70%. Discount at 8.98%, terminal growth 3%.</p>
+    <div class="reveal-gate"><div class="gl">Worked live in class</div><div class="gt">Commit to your prediction first — we work the result together.</div></div>
+  </section>
+
+  <section class="scene">
+    <div class="stage evidence fx"><span class="tag">Evidence</span><span class="arc">franchise + option</span><span class="ln"></span></div>
+    <h3 class="head fx d1"><span>Space</span> — a near-break-even franchise, plus an option</h3>
+    <p class="fx d2">The world's dominant launch provider — but most launches are <em>internal</em> (Starlink), at cost, so reported margins are thin. The upside isn't in today's Falcon.</p>
+    <div class="cluster c2 fx d3">
+      <div class="it"><div class="l">Base launch business (DCF)</div><div class="d"><span style="color:var(--ink-faint);font-style:italic">— sized live in class —</span></div></div>
+      <div class="it violetk"><div class="l">Starship — a real option</div><div class="d">point-to-point, heavy lift, lunar/Mars cargo. Valued by scenario: <b>$0 / $80bn / $250bn</b>.</div></div>
+    </div>
+  </section>
+
+  <section class="scene">
+    <div class="stage predict fx"><span class="tag">Predict</span><span class="arc">the swing factor</span><span class="ln"></span></div>
+    <h3 class="head fx d1"><span class="hl-c">AI</span> — tiny today, enormous if it works</h3>
+    <p class="fx d2">$3.2bn revenue, <em>losing</em> $6.4bn at the operating line, $12.7bn of capex, against an issuer-claimed <strong>$26.5 trillion</strong> TAM. So we don't pretend to a point estimate — we run three scenarios.</p>
+    <div class="reveal-gate"><div class="gl">Worked live in class</div><div class="gt">Commit to your prediction first — we work the result together.</div></div>
+  </section>
+</div>
+
+<!-- ===================== PART 4 — SUM OF PARTS ===================== -->
+<section class="part" data-dot="4 · Sum of parts">
+  <div class="pn fx">Part Four</div>
+  <h2 class="fx d1">Adding it <em>up</em></h2>
+  <div class="pl fx d2">Sum the segments, bridge to equity, divide by 13.08bn shares — and compare to $153.</div>
+</section>
+
+<div class="col">
+  <section class="scene">
+    <div class="stage evidence fx"><span class="tag">Evidence</span><span class="arc">the bridge · Base case</span><span class="ln"></span></div>
+    <div class="reveal-gate"><div class="gl">Worked live in class</div><div class="gt">Commit to your prediction first — we work the result together.</div></div>
+  </section>
+
+  <section class="scene">
+    <h3 class="head fx">The <em>football field</em></h3>
+    <div class="reveal-gate"><div class="gl">Worked live in class</div><div class="gt">Commit to your prediction first — we work the result together.</div></div>
+  </section>
+</div>
+
+<!-- ===================== PART 5 — REVERSE DCF ===================== -->
+<section class="part" data-dot="5 · Reverse DCF">
+  <div class="pn fx">Part Five</div>
+  <h2 class="fx d1">What must you <em>believe?</em></h2>
+  <div class="pl fx d2">We can't reach $153 from the cash flows. So invert the question.</div>
+</section>
+
+<div class="col">
+  <section class="scene">
+    <div class="stage predict fx"><span class="tag">Predict</span><span class="arc">turn the DCF around</span><span class="ln"></span></div>
+    <div class="predict-box fx d1">
+      <div class="q">Hold Starlink, Space and Starship at our marks. <em>What must the market be assigning to the AI / moonshot bucket</em> to justify $153?</div>
+      <div class="opts">Guess the number before you scroll — it lands larger than you'd think.</div>
+    </div>
+  </section>
+
+  <section class="scene">
+    <div class="stage evidence fx"><span class="tag">Evidence</span><span class="arc">the implied premium</span><span class="ln"></span></div>
+    <div class="reveal-gate"><div class="gl">Worked live in class</div><div class="gt">Commit to your prediction first — we work the result together.</div></div>
+  </section>
+
+  <section class="scene">
+    <div class="stage idea fx"><span class="tag">Idea</span><span class="arc">read the residual honestly</span><span class="ln"></span></div>
+    <div class="cluster c2 fx d1">
+      <div class="it"><div class="l">What it is</div><div class="d">the value the price assigns to everything a DCF <b>can't</b> capture: Starship at scale, Mars, 100 TW of orbital compute, AI TAM capture.</div></div>
+      <div class="it coralk"><div class="l">What it is not</div><div class="d">a precise AI valuation. It is a <b>residual</b> — it absorbs every conservative choice we made elsewhere.</div></div>
+    </div>
+    <blockquote class="fx">A narrative stock is priced on the option, not the cash flows.</blockquote>
+  </section>
+</div>
+
+<!-- ===================== PART 6 — ESG ===================== -->
+<section class="part" data-dot="6 · ESG">
+  <div class="pn fx">Part Six</div>
+  <h2 class="fx d1">Where ESG <em>actually bites</em></h2>
+  <div class="pl fx d2">We put real E, S and G factors into the discount rate. Predict: dollars, or cents?</div>
+</section>
+
+<div class="col">
+  <section class="scene tight">
+    <div class="cluster c3 fx">
+      <div class="it greenk"><div class="l">S · taste (PST)</div><div class="d">Starlink connects 3bn unconnected → <b>lower</b> cost of capital (−20 bp).</div></div>
+      <div class="it"><div class="l">E · risk (à la BK)</div><div class="d">launch emissions, NEPA, orbital debris / Kessler → <b>premium</b> (+30 bp).</div></div>
+      <div class="it violetk"><div class="l">G · governance risk</div><div class="d">dual-class control, key-person, related parties → <b>premium</b> (+20 bp).</div></div>
+    </div>
+  </section>
+
+  <section class="scene">
+    <div class="stage verdict fx"><span class="tag">Verdict</span><span class="arc">dollars, or cents?</span><span class="ln"></span></div>
+    <div class="reveal-gate"><div class="gl">Worked live in class</div><div class="gt">Commit to your prediction first — we work the result together.</div></div>
+  </section>
+</div>
+
+<!-- ===================== PART 7 — GOVERNANCE ===================== -->
+<section class="part" data-dot="7 · Governance">
+  <div class="pn fx">Part Seven</div>
+  <h2 class="fx d1">The governance <em>overlay</em></h2>
+  <div class="pl fx d2">One founder, 82.4% of the vote, and a pay award that vests on Mars.</div>
+</section>
+
+<div class="col">
+  <section class="scene tight">
+    <div class="tablewrap fx"><table class="data">
+      <caption><span class="fn">Dual-class</span>a Nasdaq "controlled company" — exempt from the independent-board-majority rule.</caption>
+      <thead><tr><th>Class</th><th>shares</th><th>votes/share</th><th>voting power</th></tr></thead>
+      <tbody>
+        <tr><td>A (public)</td><td class="num">7.38bn</td><td class="num">1</td><td class="num">11.5%</td></tr>
+        <tr><td>B (Musk & insiders)</td><td class="num">5.70bn</td><td class="num">10</td><td class="num">88.5%</td></tr>
+        <tr class="tot"><td><b>Elon Musk — total voting power</b></td><td></td><td></td><td class="num key">82.4%</td></tr>
+      </tbody>
+    </table></div>
+    <p class="fx">Musk is CEO, CTO and Chairman, with ≈46% of the economics but <strong>82.4%</strong> of the vote.</p>
+  </section>
+
+  <section class="scene tight">
+    <h3 class="head fx">The pay award: <em>vest on Mars</em></h3>
+    <div class="cluster c2 fx d1">
+      <div class="it"><div class="l">1,000m Class B shares</div><div class="d">vest on 15 market-cap milestones <b>and</b> a permanent Mars colony of ≥1,000,000 people.</div></div>
+      <div class="it"><div class="l">302m Class B shares</div><div class="d">vest on 12 milestones <b>and</b> non-Earth data centres at 100 TW/yr of compute.</div></div>
+    </div>
+    <p class="fx d2">≈ <strong>1.30bn shares</strong> (~9% dilution) — but only in states of the world where SpaceX is worth <em>multiple trillions</em>. The dilution is contingent on the very upside that triggers it.</p>
+  </section>
+
+  <section class="scene">
+    <div class="cluster c2 fx">
+      <div class="it coralk"><div class="l">Concentration</div><div class="d">82.4% control means minority holders cannot discipline strategy, capital allocation, or the <b>$20.2bn</b> of related-party xAI↔Valor compute leases.</div></div>
+      <div class="it greenk"><div class="l">…vs. conviction</div><div class="d">the same control let SpaceX make decade-long, capital-destroying bets — reusable rockets, Starlink — a quarterly market would have killed.</div></div>
+    </div>
+    <p class="fx d1">The <strong>G</strong> in ESG is not a checklist here — it is whether you trust the <span class="hl">one person</span> who controls the moonshot.</p>
+  </section>
+</div>
+
+<!-- ===================== PART 8 — SYNTHESIS ===================== -->
+<section class="part" data-dot="Synthesis">
+  <div class="pn fx">Synthesis</div>
+  <h2 class="fx d1">What SpaceX teaches about <em>valuation</em></h2>
+</section>
+
+<div class="col">
+  <section class="scene tight">
+    <div class="cluster c2 fx">
+      <div class="it"><div class="l">Sum-of-the-parts disciplines a story</div><div class="d">three segments, three discount rates — cash engine, franchise, swing factor — beats one blended guess.</div></div>
+      <div class="it"><div class="l">When DCF and price diverge sharply, invert</div><div class="d">the reverse DCF turns "it's expensive" into a falsifiable claim about the moonshot.</div></div>
+      <div class="it"><div class="l">ESG lives somewhere specific</div><div class="d">basis points in the discount rate; first-order in the scenarios and in governance.</div></div>
+      <div class="it"><div class="l">Governance is priced</div><div class="d">82.4% control is both the risk and the reason the bets got made.</div></div>
+    </div>
+  </section>
+
+  <section class="scene">
+    <div class="stage idea fx"><span class="tag">Idea</span><span class="arc">discussion</span><span class="ln"></span></div>
+    <div class="chips fx d1">
+      <span class="c">Are you the analyst, or the market?</span>
+      <span class="c">Value AI by DCF at all — or only as an option?</span>
+      <span class="c">Does 82.4% control deserve a discount, or a premium?</span>
+      <span class="c">Is the rest of SpaceX a giant call option on Mars?</span>
+    </div>
+    <p class="fx d2 mono" style="color:var(--ink-faint);font-size:15px">Bring your number. We rebuild the model live and see whose assumptions survive.</p>
+  </section>
+</div>
+
+<footer data-dot="Close">
+  <div class="big">A disciplined DCF lands far below the tape.<br>The difference is everything you believe about Mars.</div>
+  Valuing SpaceX · Summer ESG Module · Jae Yung Kim · 2026<br>
+  Numbers from the verified workbook SpaceX_ESG_Valuation_2026.xlsx · audited SEC S-1/A #2 (CIK 0001181412)
+</footer>
+
+</main>
+
+<script>
+const MODE = "pre";
+document.getElementById("ed").textContent = ({full:"Full edition",during:"During class",pre:"Pre-class"})[MODE];
+
+const C = {
+  bars(s){const W=520,H=s.h||300,p={t:22,r:14,b:46,l:20},min=s.min!=null?s.min:0,max=s.max,
+    y=v=>p.t+(max-v)/(max-min)*(H-p.t-p.b),z=y(0),g=s.groups,sw=(W-p.l-p.r)/g.length;
+    let o=`<svg viewBox="0 0 ${W} ${H}" class="chart">`,d=0;
+    o+=`<line class="zero" x1="${p.l}" y1="${z}" x2="${W-p.r}" y2="${z}"/>`;
+    if(s.ref){const ry=y(s.ref.v);o+=`<line class="zero" x1="${p.l}" y1="${ry}" x2="${W-p.r}" y2="${ry}" style="stroke:${s.ref.color};stroke-dasharray:5 3;stroke-width:1.6"/>`+
+      `<text class="vlbl cpop" x="${W-p.r}" y="${ry-8}" text-anchor="end" fill="${s.ref.color}" style="animation-delay:1s">${s.ref.label}</text>`;}
+    if(s.ylabel)o+=`<text class="axlbl cpop" x="${p.l-4}" y="${p.t-7}">${s.ylabel}</text>`;
+    g.forEach((G,gi)=>{const bw=Math.min(70,(sw-26)/G.bars.length),x0=p.l+sw*gi+(sw-bw*G.bars.length-(G.bars.length-1)*10)/2;
+      G.bars.forEach((b,bi)=>{const x=x0+bi*(bw+10),yv=y(b.v),top=Math.min(yv,z),h=Math.abs(yv-z)||2,pos=b.v>=0;
+        o+=`<rect class="bar ${pos?'pos':'neg'}" x="${x}" y="${top}" width="${bw}" height="${h}" rx="2" fill="${b.color}" style="animation-delay:${d}s"/>`;
+        o+=`<text class="vlbl cpop" x="${x+bw/2}" y="${pos?top-9:top+h+19}" text-anchor="middle" fill="${b.color}" style="animation-delay:${d+.25}s">${b.label}</text>`;d+=.12;});
+      o+=`<text class="clbl cpop" x="${p.l+sw*gi+sw/2}" y="${H-p.b+26}" text-anchor="middle" style="animation-delay:${d+.1}s">${G.label}</text>`;});
+    if(s.foot)o+=`<text class="note cpop" x="${W/2}" y="${H-6}" text-anchor="middle" fill="var(--ink-faint)" style="animation-delay:${d+.3}s">${s.foot}</text>`;
+    return o+`</svg>`;}
+};
+const CHARTS={
+  segrev:()=>C.bars({h:310,max:12,min:-2,ylabel:"$bn · FY2025",foot:"revenue (filled) vs Adjusted EBITDA (gold/coral)",groups:[
+    {label:"Space",bars:[{v:4.09,label:"4.1",color:"var(--teal)"},{v:0.65,label:"0.65",color:"var(--gold)"}]},
+    {label:"Connectivity",bars:[{v:11.39,label:"11.4",color:"var(--teal)"},{v:7.17,label:"7.2",color:"var(--gold)"}]},
+    {label:"AI",bars:[{v:3.20,label:"3.2",color:"var(--teal)"},{v:-1.24,label:"−1.2",color:"var(--coral)"}]}]}),
+  football:()=>'',
+  reverse:()=>''};
+document.querySelectorAll(".chart-slot").forEach(el=>{const k=el.dataset.chart;if(CHARTS[k])el.innerHTML=CHARTS[k]();});
+
+if(MODE!=="full"){
+  document.querySelectorAll("[data-reveal]").forEach(el=>{
+    if(MODE==="pre"){
+      const g=document.createElement("div");g.className="reveal-gate";
+      g.innerHTML='<div class="gl">Worked live in class</div><div class="gt">Commit to your prediction first — we work the result together.</div>';
+      el.replaceWith(g);
+    }else{
+      el.classList.add("answer","hide");
+      const g=document.createElement("div");g.className="reveal-gate";
+      g.innerHTML='<div class="gl">Reveal</div><div class="gt">Predictions in? Let’s see what the numbers say.</div><button>Show the result ›</button>';
+      el.before(g);
+      g.querySelector("button").onclick=()=>{el.classList.remove("hide");g.remove();el.querySelectorAll(".fx").forEach(f=>obs.observe(f));el.querySelectorAll(".chart-slot").forEach(sl=>{const k=sl.dataset.chart;if(CHARTS[k]&&!sl.innerHTML)sl.innerHTML=CHARTS[k]();});};
+    }
+  });
+  // inline reveals (small spans/cells): blur in pre, click-to-show in during
+  document.querySelectorAll("[data-reveal-inline]").forEach(el=>{
+    if(MODE==="pre"){el.innerHTML='<span style="color:var(--ink-faint);font-style:italic">— sized live in class —</span>';}
+  });
+}
+
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");obs.unobserve(e.target);}}),{threshold:.18,rootMargin:"0px 0px -8% 0px"});
+document.querySelectorAll(".fx").forEach(el=>obs.observe(el));
+const figo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");figo.unobserve(e.target);}}),{threshold:.25,rootMargin:"0px 0px -6% 0px"});
+document.querySelectorAll("figure").forEach(f=>figo.observe(f));
+
+const prog=document.getElementById("prog");
+addEventListener("scroll",()=>{const h=document.documentElement;prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%";},{passive:true});
+
+const dn=document.getElementById("dots"),secs=[...document.querySelectorAll("[data-dot]")].filter(s=>s.dataset.dot);
+secs.forEach((s,i)=>{s.id="d"+i;const a=document.createElement("a");a.href="#d"+i;a.innerHTML=`<span class="t">${s.dataset.dot}</span><span class="p"></span>`;dn.appendChild(a);});
+const links=[...dn.children];
+const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=secs.indexOf(e.target);links.forEach((l,j)=>l.classList.toggle("on",j===i));}}),{rootMargin:"-45% 0px -45% 0px"});
+secs.forEach(s=>spy.observe(s));
+
+if(new URLSearchParams(location.search).has("still")){
+  document.querySelectorAll(".fx,figure,.chart-slot").forEach(e=>e.classList.add("in"));
+  const st=document.createElement("style");st.textContent=".fx{opacity:1!important;transform:none!important;transition:none!important}.bar{transform:scaleY(1)!important;animation:none!important}.draw{stroke-dashoffset:0!important;animation:none!important}.cpop{opacity:1!important;transform:none!important;animation:none!important}";document.head.appendChild(st);
+}
+</script>
+</body>
+</html>
