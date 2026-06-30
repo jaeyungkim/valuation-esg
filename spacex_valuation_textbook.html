@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valuing SpaceX — a reading</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f7f2e7; --paper-2:#efe7d6; --card:#fcf9f1;
+  --ink:#23201a; --ink-soft:#5b5346; --ink-faint:#938a78;
+  --rule:rgba(35,32,26,.14); --rule-strong:rgba(35,32,26,.30);
+  --gold:#a9791f; --gold-bright:#c8941f; --teal:#2c6e91; --green:#2f7d54; --coral:#bd472f; --violet:#6a5aa6;
+  --display:"Fraunces",Georgia,serif; --body:"Newsreader",Georgia,serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --measure:39em;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:20.5px;line-height:1.72;font-weight:380;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  background-image:radial-gradient(140% 60% at 50% 0%,#fbf7ee 0%,#f7f2e7 50%);background-attachment:fixed}
+::selection{background:rgba(169,121,31,.22)}
+#bar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--gold),var(--teal))}
+#tocbtn{position:fixed;top:18px;right:18px;z-index:60;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-soft);background:var(--card);border:1px solid var(--rule);padding:8px 13px;border-radius:3px;cursor:pointer;transition:.2s}
+#tocbtn:hover{border-color:var(--gold);color:var(--gold)}
+#toc{position:fixed;inset:0;z-index:70;background:rgba(247,242,231,.97);backdrop-filter:blur(4px);display:none;padding:9vh 8vw;overflow-y:auto}
+#toc.open{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+#toc h3{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:26px}
+#toc ol{list-style:none;counter-reset:t;max-width:760px}
+#toc li{counter-increment:t;border-bottom:1px solid var(--rule)}
+#toc a{display:flex;gap:18px;align-items:baseline;padding:16px 4px;font-family:var(--display);font-size:25px;color:var(--ink);transition:.2s;text-decoration:none}
+#toc a::before{content:counter(t,decimal-leading-zero);font-family:var(--mono);font-size:13px;color:var(--gold);min-width:30px}
+#toc a:hover{color:var(--gold);padding-left:14px}
+#toc .close{position:absolute;top:5vh;right:8vw;font-family:var(--mono);font-size:13px;color:var(--ink-faint);cursor:pointer;letter-spacing:.1em}
+header.mast{max-width:var(--measure);margin:0 auto;padding:15vh 26px 8vh;position:relative}
+.mast .eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:30px}
+.mast h1{font-family:var(--display);font-weight:560;font-size:clamp(42px,7vw,76px);line-height:1.0;letter-spacing:-.02em;color:var(--ink)}
+.mast h1 em{font-style:italic;color:var(--gold)}
+.mast .dek{font-family:var(--display);font-weight:300;font-style:italic;font-size:clamp(21px,3vw,28px);color:var(--ink-soft);margin-top:24px;line-height:1.35;max-width:26ch}
+.mast .credit{font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--ink-soft);margin-top:36px;padding-top:20px;border-top:1px solid var(--rule);display:flex;gap:26px;flex-wrap:wrap}
+.mast .credit b{color:var(--ink);font-weight:600}
+.mast .abstract{margin-top:34px;font-size:19px;color:var(--ink-soft);line-height:1.6;border-left:2px solid var(--gold);padding-left:22px;font-style:italic}
+article{max-width:var(--measure);margin:0 auto;padding:0 26px 14vh}
+.part{margin:11vh 0 0;padding-top:5vh;border-top:1px solid var(--rule)}
+.part .pnum{font-family:var(--mono);font-size:12.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.part h2{font-family:var(--display);font-weight:560;font-size:clamp(32px,5vw,46px);line-height:1.05;letter-spacing:-.015em}
+.part h2 em{font-style:italic;color:var(--gold)}
+h3.sec{font-family:var(--display);font-weight:560;font-size:27px;margin:6vh 0 0;letter-spacing:-.01em;line-height:1.15}
+h3.sec .marker{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.1em;display:block;margin-bottom:6px;font-weight:500;text-transform:uppercase}
+p{margin-top:22px}
+p.lede{font-size:23px;line-height:1.55;color:var(--ink);font-weight:360}
+p.dropcap::first-letter{font-family:var(--display);font-weight:500;font-size:5.4em;line-height:.78;float:left;margin:8px 12px -6px 0;color:var(--gold)}
+em{font-style:italic}
+strong{font-weight:600;color:var(--ink)}
+.tk{font-weight:600;color:var(--ink);font-style:normal}
+.term{color:var(--gold);font-style:italic}
+.cite{font-family:var(--mono);font-size:.74em;color:var(--ink-faint);letter-spacing:.01em;white-space:nowrap}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+blockquote{margin:5vh 0;padding:0 0 0 4px;font-family:var(--display);font-weight:300;font-style:italic;font-size:28px;line-height:1.3;color:var(--ink);max-width:22ch}
+blockquote.center{max-width:none;text-align:center}
+blockquote .a{display:block;font-family:var(--mono);font-style:normal;font-size:13px;color:var(--ink-faint);letter-spacing:.04em;margin-top:14px}
+.eqn{text-align:center;margin:4.5vh 0;font-family:var(--body);font-size:clamp(20px,2.7vw,27px);color:var(--ink);line-height:1.5}
+.eqn .b{color:var(--gold);font-weight:600}
+.eqn .cap{display:block;font-family:var(--mono);font-size:13px;color:var(--ink-faint);letter-spacing:.04em;margin-top:14px;font-style:normal}
+.consider{background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--gold);border-radius:0 7px 7px 0;padding:24px 28px;margin:4.5vh 0}
+.consider .lab{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:11px;display:flex;align-items:center;gap:10px}
+.consider .lab::before{content:"";width:16px;height:16px;border:1.5px solid var(--gold);border-radius:50%;display:inline-block}
+.consider p{margin-top:0;font-size:20px;color:var(--ink)}
+.consider p+p{margin-top:12px}
+.keyidea{background:linear-gradient(180deg,#f3efe0,#efe9d8);border-radius:8px;padding:26px 30px;margin:4.5vh 0;border:1px solid var(--rule)}
+.keyidea .lab{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:11px}
+.keyidea p{margin-top:0;font-size:20.5px;color:var(--ink)}
+.aside{font-size:16.5px;color:var(--ink-soft);background:rgba(35,32,26,.035);border-radius:6px;padding:16px 20px;margin:3.5vh 0;line-height:1.55}
+.aside .lab{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:7px}
+figure{margin:5.5vh 0;text-align:center}
+figure.wide{width:min(92vw,820px);position:relative;left:50%;margin-left:calc(min(92vw,820px)/-2)}
+.chartbox{background:var(--card);border:1px solid var(--rule);border-radius:9px;padding:26px 26px 18px;box-shadow:0 1px 0 rgba(255,255,255,.6) inset}
+.chartbox svg{width:100%;max-width:560px;height:auto;overflow:visible;display:block;margin:0 auto}
+figure.wide .chartbox svg{max-width:720px}
+figcaption{font-size:16px;color:var(--ink-soft);margin-top:16px;line-height:1.5;text-align:left;max-width:62ch;margin-left:auto;margin-right:auto}
+figcaption .fnum{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-right:8px}
+.tablewrap{margin:5vh 0}
+table{width:100%;border-collapse:collapse;font-size:16.5px;background:var(--card);border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+table caption{caption-side:top;text-align:left;font-size:16px;color:var(--ink-soft);margin-bottom:12px;line-height:1.5}
+table caption .fnum{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-right:8px}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);text-align:left;font-weight:500;padding:14px 18px;border-bottom:1px solid var(--rule-strong);background:var(--paper-2)}
+td{padding:13px 18px;border-bottom:1px solid var(--rule);color:var(--ink-soft);line-height:1.35}
+tr:last-child td{border-bottom:none}
+td b{color:var(--ink)}
+td.n{font-family:var(--mono);text-align:right;color:var(--ink);font-size:15px;white-space:nowrap}
+.n.up{color:var(--green)}.n.dn{color:var(--coral)}.n.key{color:var(--gold)}
+tr.tot td{border-top:1px solid var(--rule-strong)}
+.chart .ax{stroke:var(--rule-strong);stroke-width:1.3;fill:none}
+.chart .zero{stroke:var(--rule-strong);stroke-width:1;stroke-dasharray:2 3}
+.chart .axlbl{font-family:var(--mono);font-size:12px;fill:var(--ink-faint);letter-spacing:.04em}
+.chart .vlbl{font-family:var(--mono);font-size:14px;font-weight:600}
+.chart .clbl{font-family:var(--body);font-size:14px;fill:var(--ink-soft)}
+.chart .note{font-family:var(--body);font-size:13px;font-style:italic}
+.bar{transform:scaleY(0);transform-box:fill-box}.bar.pos{transform-origin:bottom}.bar.neg{transform-origin:top}
+.shown .bar{animation:bg .8s cubic-bezier(.18,.85,.3,1) forwards}@keyframes bg{to{transform:scaleY(1)}}
+.cpop{opacity:0;transform:translateY(7px)}.shown .cpop{animation:cp .6s ease forwards}@keyframes cp{to{opacity:1;transform:none}}
+figure .chartbox{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease}
+figure.shown .chartbox{opacity:1;transform:none}
+.refs{margin-top:11vh;padding-top:5vh;border-top:1px solid var(--rule)}
+.refs h2{font-family:var(--display);font-weight:560;font-size:30px;margin-bottom:8px}
+.refs .note{color:var(--ink-faint);font-size:15px;margin-bottom:24px}
+.refs ol{list-style:none;counter-reset:r}
+.refs li{counter-increment:r;position:relative;padding:14px 0 14px 42px;border-bottom:1px solid var(--rule);font-size:16.5px;color:var(--ink-soft);line-height:1.5}
+.refs li::before{content:counter(r);position:absolute;left:0;top:15px;font-family:var(--mono);font-size:12px;color:var(--gold)}
+.refs li b{color:var(--ink);font-weight:600}.refs li i{font-style:italic}
+footer{max-width:var(--measure);margin:0 auto;padding:8vh 26px 12vh;text-align:center;color:var(--ink-faint);font-family:var(--mono);font-size:13px;letter-spacing:.04em;line-height:1.9}
+footer .big{font-family:var(--display);font-style:italic;font-size:28px;color:var(--ink);letter-spacing:0;margin-bottom:18px}
+@media(max-width:680px){body{font-size:19px}p.dropcap::first-letter{font-size:4.2em}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<button id="tocbtn">Contents</button>
+<nav id="toc"><span class="close">✕ close</span><h3>Contents</h3><ol id="toclist"></ol></nav>
+
+<header class="mast">
+  <div class="eyebrow">Summer ESG Module · Valuation · A reading</div>
+  <h1>Valuing <em>SpaceX</em></h1>
+  <div class="dek">A sum-of-the-parts on the real S-1 — and what the price makes you believe.</div>
+  <div class="credit"><span><b>Jae Yung Kim</b></span><span>University of Exeter</span><span>≈ 20 min read</span></div>
+  <p class="abstract">In June 2026 SpaceX went public in the largest IPO in history, at roughly two trillion dollars — on $18.7 billion of revenue and a $4.9 billion loss. This reading builds the valuation from the filing the way an analyst would: three segments, three discount rates, summed and bridged to a value per share, then tested against the live price. The disciplined answer lands far below the market. The interesting work begins there — inverting the DCF to read off exactly what the price requires you to believe, and asking where, in all of this, ESG actually moves the number.</p>
+</header>
+
+<article id="doc">
+
+<!-- ===================== PROLOGUE ===================== -->
+<section class="part" data-toc="Prologue · the IPO">
+<div class="pnum">Prologue</div>
+<h2>The biggest IPO <em>in history</em></h2>
+
+<p class="dropcap"><strong>On 12 June 2026</strong>, Space Exploration Technologies Corp. — SpaceX — sold shares to the public for the first time, on Nasdaq, under the ticker <span class="num">SPCX</span>. It priced at <span class="num">$135</span>, raised about <span class="num">$75 billion</span> — the largest initial public offering ever completed — jumped 19% on its first day — to about <span class="num">$161</span> — and has since settled around <span class="num">$153</span>. At that price the company's equity is worth roughly <strong>two trillion dollars</strong>.</p>
+
+<p>Put that number next to the financials in the prospectus and it should give you pause. Two trillion dollars is about <strong>107 times</strong> the company's 2025 revenue of <span class="num">$18.7 billion</span>, and the company did not earn a profit — it lost <span class="num">$4.9 billion</span>. For the first time, though, we can stop guessing: a just-listed SpaceX comes with an audited S-1, real segment financials, and a live market price to value against. So we will do the exercise properly.</p>
+
+<div class="consider"><div class="lab">Consider this</div>
+<p>You are an analyst the morning after the IPO. The filing is on your desk; the tape says <strong>$153</strong>. Is the stock cheap, about right, or expensive on the fundamentals? And if it is expensive — <em>what, precisely, would you have to believe</em> to justify the price? Hold an answer in mind; we will return to it with numbers.</p></div>
+
+<!-- ===================== 1 — THREE BUSINESSES ===================== -->
+<section class="part" data-toc="1 · Three businesses">
+<div class="pnum">Part One</div>
+<h2>One filing, <em>three businesses</em></h2>
+
+<p class="lede">A sum-of-the-parts valuation needs parts. The filing hands us three.</p>
+
+<p>After xAI was merged into the company early in 2026, SpaceX reports three operating segments, and they could not be more different from one another. <strong>Connectivity</strong> is Starlink — satellite broadband — and it is the cash engine: <span class="num">$11.4 billion</span> of 2025 revenue, <span class="num">+$4.4 billion</span> of operating income, an EBITDA margin around <strong>63%</strong>, and <span class="num">10.3 million</span> subscribers as of March 2026, up 105% in a year. <strong>Space</strong> is the launch business — Falcon, Dragon, Starshield — the world's dominant launch provider, yet near break-even on <span class="num">$4.1 billion</span> of revenue, because most of its launches are internal Starlink missions flown at cost. <strong>AI</strong> is xAI and Grok: <span class="num">$3.2 billion</span> of revenue, an operating <em>loss</em> of <span class="num">$6.4 billion</span>, and <span class="num">$12.7 billion</span> of capital expenditure — a business burning money at scale against an enormous claimed market.</p>
+
+<figure class="wide"><div class="chartbox"><div class="chart-slot" data-chart="segrev"></div></div>
+<figcaption><span class="fnum">Fig 1</span>FY2025 revenue (filled bars) and Adjusted EBITDA (markers) by segment, in $bn. Starlink is most of the revenue and almost all of the profit; the AI segment earns less and loses more. <span class="cite">SEC Form S-1/A #2, CIK 0001181412.</span></figcaption></figure>
+
+<p>The consolidated cash picture follows directly. In 2025 SpaceX generated <span class="num">$6.8 billion</span> of operating cash flow and spent <span class="num">$20.7 billion</span> on capital expenditure, for a free cash flow of <strong>negative <span class="num">$14.0 billion</span></strong>. Starlink prints the cash; the AI segment consumes it and then some; the IPO refilled the tank with about <span class="num">$74 billion</span> of net proceeds, whose first stated use is "AI compute infrastructure." Three businesses, three risk profiles — so we will value each at its own discount rate, then add them up.</p>
+
+<!-- ===================== 2 — THE METHOD ===================== -->
+<section class="part" data-toc="2 · The method">
+<div class="pnum">Part Two</div>
+<h2>How to <em>value</em> it</h2>
+
+<p>For each segment we project ten years of <span class="term">unlevered free cash flow</span> — the cash the operating business throws off, before financing — discount it at the segment's cost of capital, and add a terminal value for everything beyond year ten:</p>
+
+<div class="eqn">FCF = <span class="b">EBIT(1−τ)</span> + D&amp;A − capex − ΔNWC&nbsp;&nbsp;·&nbsp;&nbsp;EV = Σ <span class="b">FCF<sub>t</sub></span> / (1+r)<sup>t</sup> + TV / (1+r)<sup>10</sup>
+<span class="cap">net operating profit after tax (with a loss-carryforward shield), plus depreciation, less the cash the business reinvests</span></div>
+
+<p>The discount rate <span class="num">r</span> is where two things enter. First, risk: a stable subscription business deserves a lower rate than a speculative one. We build each rate from the standard capital-asset-pricing logic — a risk-free rate plus a beta times the equity premium — and lever it lightly, because SpaceX carries almost no debt relative to its equity. Second, <strong>ESG</strong>: we nudge each rate by a small amount to reflect the environmental, social and governance character of the segment, in the direction the asset-pricing literature implies.</p>
+
+<div class="tablewrap"><table>
+<caption><span class="fnum">Table 1</span>Segment cost of capital. WACC = (1−w<sub>d</sub>)·[r<sub>f</sub> + β·ERP] + w<sub>d</sub>·r<sub>d</sub>(1−T<sub>c</sub>) + ESG nudge, with r<sub>f</sub> = 4.3% and ERP = 5%. Marks are illustrative.</caption>
+<thead><tr><th>Segment</th><th>Beta</th><th>ESG nudge</th><th>WACC</th><th>rationale</th></tr></thead>
+<tbody>
+<tr><td><b style="color:var(--teal)">Connectivity</b></td><td class="n">1.00</td><td class="n">−20 bp</td><td class="n key">8.98%</td><td>stable subscriptions; a small <em>social</em> discount for digital access</td></tr>
+<tr><td><b>Space</b></td><td class="n">1.30</td><td class="n">+30 bp</td><td class="n key">10.99%</td><td>lumpy; an <em>environmental</em> premium for launch emissions and orbital debris</td></tr>
+<tr><td><b style="color:var(--coral)">AI</b></td><td class="n">1.55</td><td class="n">+20 bp</td><td class="n key">12.18%</td><td>speculative; a <em>governance</em> premium for concentration and related parties</td></tr>
+</tbody></table></div>
+
+<p>The sign of the ESG adjustment is not arbitrary. <span class="tk">Pástor, Stambaugh and Taylor</span> show that when investors have a taste for green assets, those assets earn a <em>lower</em> cost of capital and carry a higher valuation; the carbon-premium evidence of <span class="tk">Bolton and Kacperczyk</span> points the same way for "browner" assets, which command a higher discount rate. So Starlink earns a small discount and the riskier segments a small premium. Notice the magnitudes, though — twenty or thirty basis points. Hold that thought; it becomes the lesson.</p>
+
+<!-- ===================== 3 — THE PARTS ===================== -->
+<section class="part" data-toc="3 · Valuing the parts">
+<div class="pnum">Part Three</div>
+<h2>Valuing the <em>parts</em></h2>
+
+<h3 class="sec"><span class="marker">The anchor</span>Starlink</h3>
+<p>Starlink is the segment a discounted-cash-flow model handles most comfortably, because it already generates cash. We let subscribers keep growing into the tens of millions while ARPU keeps <em>falling</em> — the filing is explicit that revenue per user has slid from <span class="num">$99</span> a month in 2023 to <span class="num">$66</span> by early 2026 and will keep declining as growth shifts to cheaper plans — and let the EBITDA margin expand toward a utility-like 70% as the constellation matures. Discounting at 8.98% with 3% terminal growth, the Connectivity segment is worth about <strong class="num">$408 billion</strong>. That is roughly seven times a much larger 2035 EBITDA: rich, but not heroic, for what is becoming a global broadband utility. It is the crown jewel, and it anchors everything that follows.</p>
+
+<h3 class="sec"><span class="marker">Franchise + option</span>Space, and Starship</h3>
+<p>The launch business is harder to love on today's numbers. As a near-break-even operation flying mostly internal missions, a straight DCF values it at only about <span class="num">$8 billion</span> — strikingly, less than its <span class="num">$28 billion</span> order backlog, a reminder that backlog is revenue, not value, and that thin margins cap what a launch dollar is worth. The real upside is not in today's Falcon; it is in <strong>Starship</strong> — point-to-point transport, heavy lift, lunar and Mars cargo — which is not yet in the cash flows. So we value it separately, as a real option, by scenario: <span class="num">$0</span> if it never pays off, <span class="num">$80 billion</span> in a base case, <span class="num">$250 billion</span> if it transforms launch economics.</p>
+
+<h3 class="sec"><span class="marker">The swing factor</span>AI</h3>
+<p>The AI segment is where honest valuation gets uncomfortable. It earns $3.2 billion, loses $6.4 billion at the operating line, spends $12.7 billion on capacity, and points at an issuer-claimed total addressable market of <span class="num">$26.5 trillion</span>. Tiny today; potentially enormous; genuinely unknowable. So rather than pretend to a single estimate, we run three scenarios — and even the optimistic one is sobering.</p>
+
+<div class="tablewrap"><table>
+<caption><span class="fnum">Table 2</span>AI segment enterprise value by scenario (ten-year DCF, discounted at 12.18%).</caption>
+<thead><tr><th>Scenario</th><th>what you believe</th><th>AI segment EV</th></tr></thead>
+<tbody>
+<tr><td><b style="color:var(--coral)">Bear</b></td><td>never earns its capital; the burn continues</td><td class="n dn">−$24bn</td></tr>
+<tr><td><b>Base</b></td><td>scales to solid profitability by about 2031</td><td class="n dn">−$2bn</td></tr>
+<tr><td><b style="color:var(--green)">Bull</b></td><td>captures real share of its market</td><td class="n up">+$83bn</td></tr>
+</tbody></table></div>
+
+<p>Read the bottom row carefully. Even in the <strong>Bull</strong> case — hyper-growth and a healthy terminal margin — a ten-year DCF values the entire AI segment at under <span class="num">$100 billion</span>. Hold that figure against the $26.5 trillion market the segment is chasing, and against the price we are about to test.</p>
+
+<!-- ===================== 4 — THE BRIDGE ===================== -->
+<section class="part" data-toc="4 · The bridge">
+<div class="pnum">Part Four</div>
+<h2>Adding it <em>up</em></h2>
+
+<p>Summing the parts, bridging from enterprise to equity value, and dividing by the post-IPO share count gives a value per share. In the base case it looks like this.</p>
+
+<div class="tablewrap"><table>
+<caption><span class="fnum">Table 3</span>Sum-of-the-parts, base case. Standard post-money bridge; a pre-money cross-check lands about $4 lower.</caption>
+<tbody>
+<tr><td><b style="color:var(--teal)">Connectivity / Starlink</b></td><td class="n">$408bn</td></tr>
+<tr><td>Space (base launch business)</td><td class="n">$8bn</td></tr>
+<tr><td>Starship real option</td><td class="n">$80bn</td></tr>
+<tr><td><b style="color:var(--coral)">AI / xAI</b></td><td class="n dn">−$2bn</td></tr>
+<tr class="tot"><td><b>Σ Enterprise value</b></td><td class="n key">$494bn</td></tr>
+<tr><td>+ cash &amp; IPO proceeds − debt</td><td class="n">+$61bn</td></tr>
+<tr><td><b>Equity value</b> ÷ 13.08bn shares</td><td class="n">$555bn</td></tr>
+<tr class="tot"><td><b>Value per share</b></td><td class="n key">$42</td></tr>
+<tr><td><b>Market price</b></td><td class="n dn">$153</td></tr>
+</tbody></table></div>
+
+<p>And because Connectivity and Space form a fixed anchor while only the moonshot — AI plus the Starship option — moves with the scenario, the whole valuation collapses to a simple picture: a football field of value per share against the price.</p>
+
+<figure class="wide"><div class="chartbox"><div class="chart-slot" data-chart="football"></div></div>
+<figcaption><span class="fnum">Fig 2</span>Value per share by scenario against the $153 market price. Even the Bull case sits far below the line. <span class="cite">From the verified workbook; numbers tie to the S-1.</span></figcaption></figure>
+
+<div class="keyidea"><div class="lab">The result</div>
+<p>A disciplined sum-of-the-parts puts SpaceX between roughly <strong>$35 and $62</strong> a share across bear and bull. The market says <strong>$153</strong>. No reasonable set of cash-flow assumptions closes a gap that large. So the right question is no longer "is it expensive?" — it plainly is — but "what is the market seeing that the cash flows are not?"</p></div>
+
+<!-- ===================== 5 — REVERSE DCF ===================== -->
+<section class="part" data-toc="5 · The reverse DCF">
+<div class="pnum">Part Five</div>
+<h2>What must you <em>believe?</em></h2>
+
+<p class="lede">When a DCF and a price disagree by a factor of three, the most useful move is to invert the model.</p>
+
+<p>We cannot reach $153 from the cash flows. So instead of forcing the assumptions, we hold the parts we are confident about — Starlink, the base launch business, the Starship option — at our disciplined marks, and ask the model a single question: <em>what value must the market be assigning to the AI / moonshot bucket</em> for the equity to be worth $153 a share? The answer is the residual that makes the arithmetic work.</p>
+
+<figure class="wide"><div class="chartbox"><div class="chart-slot" data-chart="reverse"></div></div>
+<figcaption><span class="fnum">Fig 3</span>The value the market price implies for the AI / moonshot bucket, holding the other segments at disciplined marks — against the segment's near-zero DCF value. <span class="cite">A residual, not a standalone valuation.</span></figcaption></figure>
+
+<p>The number is <strong class="num">≈ $1.45 trillion</strong>. To pay $153 for SpaceX you must believe the AI-and-moonshot piece — the bit a ten-year DCF cannot see — is worth roughly one-and-a-half <em>trillion</em> dollars, against a disciplined estimate of essentially zero, and against the roughly <span class="num">$200 billion</span> that private markets last attached to xAI <span class="cite">(press-reported)</span>.</p>
+
+<div class="consider"><div class="lab">Read the residual honestly</div>
+<p>That $1.45 trillion is <em>not</em> a precise valuation of the AI business. It is a <strong>residual</strong> — it absorbs every conservative choice we made elsewhere, and it moves if you change Starlink's terminal growth or the Starship scenario. What it measures cleanly is the size of the bet: the value the market assigns to everything a disciplined DCF cannot capture — Starship at scale, Mars, orbital compute, AI market capture.</p></div>
+
+<blockquote class="center">A narrative stock is priced on the option, not the cash flows.</blockquote>
+
+<p>This is the lesson, made concrete, that <span class="tk">Damodaran</span> tells about Tesla and every story stock since: when narrative and numbers diverge this far, the discounted-cash-flow model has not failed — it has done its job, which is to tell you exactly how large a story you are being asked to buy.</p>
+
+<!-- ===================== 6 — ESG ===================== -->
+<section class="part" data-toc="6 · ESG, where it bites">
+<div class="pnum">Part Six</div>
+<h2>Where ESG <em>actually bites</em></h2>
+
+<p>We put real ESG factors into the discount rate. Starlink's mission to connect three billion unconnected people is a genuine social good, so it earns a small discount; the launch business carries an environmental premium for emissions, for the National Environmental Policy Act reviews that can delay launches, and for the orbital-debris and Kessler-syndrome risk of a crowding low-Earth orbit; the AI segment carries a governance premium. Now ask the question that matters for an investor: how much does any of this move the value?</p>
+
+<div class="keyidea"><div class="lab">The honest answer</div>
+<p>A few dollars a share. The ESG adjustments are twenty or thirty basis points on the discount rate; the gap to the market price is about <strong>$110</strong>. ESG moves cents; the moonshot moves everything.</p></div>
+
+<p>That is not an argument that ESG is irrelevant — it is a sharper lesson about <em>where</em> ESG lives in a valuation. For a narrative stock, a basis-point repricing of risk is second-order to the growth beliefs baked into the cash flows. ESG's real bite here is not in the discount rate at all; it is in the <strong>cash-flow scenarios</strong> — would debris regulation cap the constellation? does Starshield concentrate geopolitical and reputational risk? — and, above all, in <strong>governance</strong>, to which we now turn. This is the morning's machine <span class="num">P = E[m·x]</span> in a single stock: ESG mostly in the discount rate (cents), the moonshot in the cash flows (everything). Knowing where each force lives is itself the integration result worth teaching.</p>
+
+<!-- ===================== 7 — GOVERNANCE ===================== -->
+<section class="part" data-toc="7 · Governance">
+<div class="pnum">Part Seven</div>
+<h2>The governance <em>overlay</em></h2>
+
+<p>SpaceX has two classes of common stock. Class A, held by the public, carries one vote; Class B, held by Elon Musk and insiders, carries ten. The arithmetic of that structure is stark: with about <span class="num">5.70 billion</span> Class B shares against <span class="num">7.38 billion</span> Class A, <strong>Musk controls 82.4% of the vote</strong> while holding roughly 46% of the economics. SpaceX is, in Nasdaq's language, a "controlled company," exempt from the requirement that a majority of its board be independent. Musk is chief executive, chief technology officer, and chairman.</p>
+
+<p>Then there is the pay award. Musk's 2026 performance grant is some <span class="num">1.30 billion</span> Class B shares — about 9% dilution — that vest only on a combination of market-capitalisation milestones reaching into the multiple trillions <em>and</em> operational moonshots: a permanent <strong>Mars colony of at least one million people</strong>, and non-Earth data centres delivering 100 terawatts of compute a year. The dilution, in other words, is contingent on precisely the upside that would trigger it.</p>
+
+<div class="consider"><div class="lab">Concentration, or conviction?</div>
+<p>The same 82.4% control that prevents minority holders from disciplining strategy, capital allocation, or the <span class="num">$20.2 billion</span> of related-party compute leases with a board member's fund is also what let SpaceX make decade-long, capital-destroying bets — reusable rockets, a satellite constellation — that a quarterly public market would have killed in the cradle. The <strong>G</strong> in ESG is not a checklist here. It is the single question of whether you trust the one person who controls the moonshot.</p></div>
+
+<!-- ===================== 8 — SYNTHESIS ===================== -->
+<section class="part" data-toc="8 · Synthesis">
+<div class="pnum">Synthesis</div>
+<h2>What SpaceX teaches about <em>valuation</em></h2>
+
+<p>Four lessons survive the exercise. First, a <strong>sum-of-the-parts disciplines a story</strong>: splitting SpaceX into a cash engine, a franchise, and a swing factor — each at its own discount rate — is far more honest than one blended multiple on a loss-making whole. Second, <strong>when a DCF and a price diverge by three times, you invert the model</strong>; the reverse DCF turns "it's expensive" into a falsifiable claim about a $1.45 trillion moonshot. Third, <strong>ESG lives somewhere specific</strong> — a few basis points in the discount rate, but first-order in the cash-flow scenarios and in governance. And fourth, <strong>governance is priced</strong>: 82.4% control is at once the central risk and the reason the audacious bets were ever made.</p>
+
+<p>So return to the question from the prologue. The disciplined number is somewhere around forty dollars, a bull case in the low sixties; the market pays $153. You do not have to call the market wrong. You only have to decide whether you are the analyst — who values the cash flows — or the market — which is buying a call option on Mars. The honest valuation does not settle that for you. It tells you, to the dollar, what you are being asked to believe.</p>
+
+<div class="refs">
+<h2>References &amp; sources</h2>
+<p class="note">Finance citations are drawn from leading journals and foundational works. All financial figures are extracted from the audited SEC filing and computed in the accompanying workbook.</p>
+<ol>
+<li><b>Pástor, Ľ., Stambaugh, R. F., &amp; Taylor, L. A.</b> (2021). Sustainable investing in equilibrium. <i>Journal of Financial Economics</i>, 142(2). <span class="cite">— green tastes → lower cost of capital, higher valuation, lower expected return.</span></li>
+<li><b>Bolton, P., &amp; Kacperczyk, M.</b> (2021). Do investors care about carbon risk? <i>Journal of Financial Economics</i>, 142(2). <span class="cite">— the carbon premium: browner assets, higher discount rate.</span></li>
+<li><b>Cochrane, J. H.</b> (2011). Discount rates. <i>Journal of Finance</i>, 66(4). <span class="cite">— why valuations move on the denominator; the discount-rate lens this case applies.</span></li>
+<li><b>Damodaran, A.</b> (2017). <i>Narrative and Numbers: The Value of Stories in Business.</i> Columbia University Press. <span class="cite">— how story and DCF meet for high-growth firms.</span></li>
+<li><b>U.S. Securities and Exchange Commission.</b> Space Exploration Technologies Corp., Form S-1/A (Amendment No. 2), June 2026, CIK 0001181412. <span class="cite">— all base-year financials, share structure, governance and risk factors.</span></li>
+<li><b>SpaceX ESG valuation workbook</b> (2026). <i>SpaceX_ESG_Valuation_2026.xlsx.</i> <span class="cite">— the sum-of-the-parts model; figures here are its outputs.</span></li>
+</ol>
+</div>
+
+</article>
+
+<footer>
+<div class="big">A disciplined DCF lands far below the tape.<br>The difference is everything you believe about Mars.</div>
+Valuing SpaceX · Summer ESG Module · Jae Yung Kim · University of Exeter · 2026
+</footer>
+
+<script>
+const C = {
+  bars(s){const W=520,H=s.h||300,p={t:22,r:14,b:46,l:20},min=s.min!=null?s.min:0,max=s.max,
+    y=v=>p.t+(max-v)/(max-min)*(H-p.t-p.b),z=y(0),g=s.groups,sw=(W-p.l-p.r)/g.length;
+    let o=`<svg viewBox="0 0 ${W} ${H}" class="chart">`,d=0;
+    o+=`<line class="zero" x1="${p.l}" y1="${z}" x2="${W-p.r}" y2="${z}"/>`;
+    if(s.ref){const ry=y(s.ref.v);o+=`<line class="zero" x1="${p.l}" y1="${ry}" x2="${W-p.r}" y2="${ry}" style="stroke:${s.ref.color};stroke-dasharray:5 3;stroke-width:1.6"/>`+
+      `<text class="vlbl cpop" x="${W-p.r}" y="${ry-8}" text-anchor="end" fill="${s.ref.color}" style="animation-delay:1s">${s.ref.label}</text>`;}
+    if(s.ylabel)o+=`<text class="axlbl cpop" x="${p.l-4}" y="${p.t-7}">${s.ylabel}</text>`;
+    g.forEach((G,gi)=>{const bw=Math.min(70,(sw-26)/G.bars.length),x0=p.l+sw*gi+(sw-bw*G.bars.length-(G.bars.length-1)*10)/2;
+      G.bars.forEach((b,bi)=>{const x=x0+bi*(bw+10),yv=y(b.v),top=Math.min(yv,z),h=Math.abs(yv-z)||2,pos=b.v>=0;
+        o+=`<rect class="bar ${pos?'pos':'neg'}" x="${x}" y="${top}" width="${bw}" height="${h}" rx="2" fill="${b.color}" style="animation-delay:${d}s"/>`;
+        o+=`<text class="vlbl cpop" x="${x+bw/2}" y="${pos?top-9:top+h+19}" text-anchor="middle" fill="${b.color}" style="animation-delay:${d+.25}s">${b.label}</text>`;d+=.12;});
+      o+=`<text class="clbl cpop" x="${p.l+sw*gi+sw/2}" y="${H-p.b+26}" text-anchor="middle" style="animation-delay:${d+.1}s">${G.label}</text>`;});
+    if(s.foot)o+=`<text class="note cpop" x="${W/2}" y="${H-6}" text-anchor="middle" fill="var(--ink-faint)" style="animation-delay:${d+.3}s">${s.foot}</text>`;
+    return o+`</svg>`;}
+};
+const CHARTS={
+  segrev:()=>C.bars({h:310,max:12,min:-2,ylabel:"$bn · FY2025",foot:"revenue (filled) vs Adjusted EBITDA",groups:[
+    {label:"Space",bars:[{v:4.09,label:"4.1",color:"var(--teal)"},{v:0.65,label:"0.65",color:"var(--gold)"}]},
+    {label:"Connectivity",bars:[{v:11.39,label:"11.4",color:"var(--teal)"},{v:7.17,label:"7.2",color:"var(--gold)"}]},
+    {label:"AI",bars:[{v:3.20,label:"3.2",color:"var(--teal)"},{v:-1.24,label:"−1.2",color:"var(--coral)"}]}]}),
+  football:()=>C.bars({h:330,max:170,min:0,ylabel:"value per share · $",ref:{v:153,label:"market $153",color:"var(--coral)"},
+    foot:"every scenario sits far below the price",groups:[
+    {label:"Bear",bars:[{v:34.69,label:"$34.69",color:"var(--teal)"}]},
+    {label:"Base",bars:[{v:42.44,label:"$42.44",color:"var(--gold)"}]},
+    {label:"Bull",bars:[{v:61.94,label:"$61.94",color:"var(--green)"}]}]}),
+  reverse:()=>C.bars({h:340,max:1500,min:0,ylabel:"$bn",foot:"what the price implies vs a disciplined DCF",groups:[
+    {label:"Starlink",bars:[{v:408,label:"408",color:"var(--teal)"}]},
+    {label:"Space+opt",bars:[{v:88,label:"88",color:"var(--violet)"}]},
+    {label:"AI (DCF)",bars:[{v:6,label:"≈0",color:"var(--ink-faint)"}]},
+    {label:"AI (implied)",bars:[{v:1446,label:"$1.45tn",color:"var(--coral)"}]}]})
+};
+document.querySelectorAll(".chart-slot").forEach(el=>{const k=el.dataset.chart;if(CHARTS[k])el.innerHTML=CHARTS[k]();});
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("shown");io.unobserve(e.target);}}),{threshold:.2,rootMargin:"0px 0px -10% 0px"});
+document.querySelectorAll("figure").forEach(f=>io.observe(f));
+
+const bar=document.getElementById("bar");
+addEventListener("scroll",()=>{const h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%";},{passive:true});
+
+const toc=document.getElementById("toc"),list=document.getElementById("toclist");
+const secs=[...document.querySelectorAll("[data-toc]")];
+secs.forEach((s,i)=>{s.id="s"+i;const li=document.createElement("li");li.innerHTML=`<a href="#s${i}">${s.dataset.toc}</a>`;list.appendChild(li);});
+document.getElementById("tocbtn").onclick=()=>toc.classList.add("open");
+toc.querySelector(".close").onclick=()=>toc.classList.remove("open");
+toc.addEventListener("click",e=>{if(e.target.tagName==="A"||e.target===toc)setTimeout(()=>toc.classList.remove("open"),120);});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")toc.classList.remove("open");});
+
+if(new URLSearchParams(location.search).has("still")){document.querySelectorAll("figure").forEach(f=>f.classList.add("shown"));}
+</script>
+</body>
+</html>

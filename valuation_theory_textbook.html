@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Value Moves — a reading</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f7f2e7; --paper-2:#efe7d6; --card:#fcf9f1;
+  --ink:#23201a; --ink-soft:#5b5346; --ink-faint:#938a78;
+  --rule:rgba(35,32,26,.14); --rule-strong:rgba(35,32,26,.30);
+  --gold:#a9791f; --gold-bright:#c8941f; --teal:#2c6e91; --green:#2f7d54; --coral:#bd472f; --violet:#6a5aa6;
+  --display:"Fraunces",Georgia,serif; --body:"Newsreader",Georgia,serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --measure:39em;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:20.5px;line-height:1.72;font-weight:380;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  background-image:radial-gradient(140% 60% at 50% 0%,#fbf7ee 0%,#f7f2e7 50%);background-attachment:fixed}
+::selection{background:rgba(169,121,31,.22)}
+#bar{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--gold),var(--teal))}
+#tocbtn{position:fixed;top:18px;right:18px;z-index:60;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-soft);background:var(--card);border:1px solid var(--rule);padding:8px 13px;border-radius:3px;cursor:pointer;transition:.2s}
+#tocbtn:hover{border-color:var(--gold);color:var(--gold)}
+#toc{position:fixed;inset:0;z-index:70;background:rgba(247,242,231,.97);backdrop-filter:blur(4px);display:none;padding:9vh 8vw;overflow-y:auto}
+#toc.open{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+#toc h3{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:26px}
+#toc ol{list-style:none;counter-reset:t;max-width:760px}
+#toc li{counter-increment:t;border-bottom:1px solid var(--rule)}
+#toc a{display:flex;gap:18px;align-items:baseline;padding:16px 4px;font-family:var(--display);font-size:25px;color:var(--ink);transition:.2s;text-decoration:none}
+#toc a::before{content:counter(t,decimal-leading-zero);font-family:var(--mono);font-size:13px;color:var(--gold);min-width:30px}
+#toc a:hover{color:var(--gold);padding-left:14px}
+#toc .close{position:absolute;top:5vh;right:8vw;font-family:var(--mono);font-size:13px;color:var(--ink-faint);cursor:pointer;letter-spacing:.1em}
+header.mast{max-width:var(--measure);margin:0 auto;padding:15vh 26px 8vh;position:relative}
+.mast .eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:30px}
+.mast h1{font-family:var(--display);font-weight:560;font-size:clamp(42px,7vw,76px);line-height:1.0;letter-spacing:-.02em;color:var(--ink)}
+.mast h1 em{font-style:italic;color:var(--gold)}
+.mast .dek{font-family:var(--display);font-weight:300;font-style:italic;font-size:clamp(21px,3vw,28px);color:var(--ink-soft);margin-top:24px;line-height:1.35;max-width:26ch}
+.mast .credit{font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--ink-soft);margin-top:36px;padding-top:20px;border-top:1px solid var(--rule);display:flex;gap:26px;flex-wrap:wrap}
+.mast .credit b{color:var(--ink);font-weight:600}
+.mast .abstract{margin-top:34px;font-size:19px;color:var(--ink-soft);line-height:1.6;border-left:2px solid var(--gold);padding-left:22px;font-style:italic}
+article{max-width:var(--measure);margin:0 auto;padding:0 26px 14vh}
+.part{margin:11vh 0 0;padding-top:5vh;border-top:1px solid var(--rule)}
+.part .pnum{font-family:var(--mono);font-size:12.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.part h2{font-family:var(--display);font-weight:560;font-size:clamp(32px,5vw,46px);line-height:1.05;letter-spacing:-.015em}
+.part h2 em{font-style:italic;color:var(--gold)}
+h3.sec{font-family:var(--display);font-weight:560;font-size:27px;margin:6vh 0 0;letter-spacing:-.01em;line-height:1.15}
+h3.sec .marker{font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.1em;display:block;margin-bottom:6px;font-weight:500;text-transform:uppercase}
+p{margin-top:22px}
+p.lede{font-size:23px;line-height:1.55;color:var(--ink);font-weight:360}
+p.dropcap::first-letter{font-family:var(--display);font-weight:500;font-size:5.4em;line-height:.78;float:left;margin:8px 12px -6px 0;color:var(--gold)}
+em{font-style:italic}
+strong{font-weight:600;color:var(--ink)}
+.tk{font-weight:600;color:var(--ink);font-style:normal}
+.term{color:var(--gold);font-style:italic}
+.cite{font-family:var(--mono);font-size:.74em;color:var(--ink-faint);letter-spacing:.01em;white-space:nowrap}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+blockquote{margin:5vh 0;padding:0 0 0 4px;font-family:var(--display);font-weight:300;font-style:italic;font-size:28px;line-height:1.3;color:var(--ink);max-width:22ch}
+blockquote.center{max-width:none;text-align:center}
+blockquote .a{display:block;font-family:var(--mono);font-style:normal;font-size:13px;color:var(--ink-faint);letter-spacing:.04em;margin-top:14px}
+/* displayed equation */
+.eqn{text-align:center;margin:4.5vh 0;font-family:var(--body);font-size:clamp(22px,3vw,29px);color:var(--ink);line-height:1.5}
+.eqn .b{color:var(--gold);font-weight:600}
+.eqn .cap{display:block;font-family:var(--mono);font-size:13px;color:var(--ink-faint);letter-spacing:.04em;margin-top:14px;font-style:normal}
+.consider{background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--gold);border-radius:0 7px 7px 0;padding:24px 28px;margin:4.5vh 0}
+.consider .lab{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:11px;display:flex;align-items:center;gap:10px}
+.consider .lab::before{content:"";width:16px;height:16px;border:1.5px solid var(--gold);border-radius:50%;display:inline-block}
+.consider p{margin-top:0;font-size:20px;color:var(--ink)}
+.consider p+p{margin-top:12px}
+.keyidea{background:linear-gradient(180deg,#f3efe0,#efe9d8);border-radius:8px;padding:26px 30px;margin:4.5vh 0;border:1px solid var(--rule)}
+.keyidea .lab{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:11px}
+.keyidea p{margin-top:0;font-size:20.5px;color:var(--ink)}
+.aside{font-size:16.5px;color:var(--ink-soft);background:rgba(35,32,26,.035);border-radius:6px;padding:16px 20px;margin:3.5vh 0;line-height:1.55}
+.aside .lab{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:7px}
+figure{margin:5.5vh 0;text-align:center}
+figure.wide{width:min(92vw,820px);margin-left:50%;transform:translateX(-50%)}
+.chartbox{background:var(--card);border:1px solid var(--rule);border-radius:9px;padding:26px 26px 18px;box-shadow:0 1px 0 rgba(255,255,255,.6) inset}
+.chartbox svg{width:100%;max-width:560px;height:auto;overflow:visible;display:block;margin:0 auto}
+figure.wide .chartbox svg{max-width:720px}
+figcaption{font-size:16px;color:var(--ink-soft);margin-top:16px;line-height:1.5;text-align:left;max-width:62ch;margin-left:auto;margin-right:auto}
+figcaption .fnum{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-right:8px}
+.tablewrap{margin:5vh 0}
+table{width:100%;border-collapse:collapse;font-size:16.5px;background:var(--card);border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+table caption{caption-side:top;text-align:left;font-size:16px;color:var(--ink-soft);margin-bottom:12px;line-height:1.5}
+table caption .fnum{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-right:8px}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);text-align:left;font-weight:500;padding:14px 18px;border-bottom:1px solid var(--rule-strong);background:var(--paper-2)}
+td{padding:13px 18px;border-bottom:1px solid var(--rule);color:var(--ink-soft);line-height:1.35}
+tr:last-child td{border-bottom:none}
+td b{color:var(--ink)}
+td.n{font-family:var(--mono);text-align:right;color:var(--ink);font-size:15px;white-space:nowrap}
+.n.up{color:var(--green)}.n.dn{color:var(--coral)}.n.key{color:var(--gold)}
+.matrix td.n{text-align:center}.matrix .rh{color:var(--ink);font-weight:600;font-family:var(--body)}
+.chart .ax{stroke:var(--rule-strong);stroke-width:1.3;fill:none}
+.chart .zero{stroke:var(--rule-strong);stroke-width:1;stroke-dasharray:2 3}
+.chart .axlbl{font-family:var(--mono);font-size:12px;fill:var(--ink-faint);letter-spacing:.04em}
+.chart .vlbl{font-family:var(--mono);font-size:14px;font-weight:600}
+.chart .clbl{font-family:var(--body);font-size:14px;fill:var(--ink-soft)}
+.chart .note{font-family:var(--body);font-size:13px;font-style:italic}
+.bar{transform:scaleY(0);transform-box:fill-box}.bar.pos{transform-origin:bottom}.bar.neg{transform-origin:top}
+.shown .bar{animation:bg .8s cubic-bezier(.18,.85,.3,1) forwards}@keyframes bg{to{transform:scaleY(1)}}
+.draw{stroke-dasharray:2600;stroke-dashoffset:2600}.shown .draw{animation:dr 1.2s ease .1s forwards}@keyframes dr{to{stroke-dashoffset:0}}
+.cpop{opacity:0;transform:translateY(7px)}.shown .cpop{animation:cp .6s ease forwards}@keyframes cp{to{opacity:1;transform:none}}
+figure .chartbox{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease}
+figure.shown .chartbox{opacity:1;transform:none}
+.refs{margin-top:11vh;padding-top:5vh;border-top:1px solid var(--rule)}
+.refs h2{font-family:var(--display);font-weight:560;font-size:30px;margin-bottom:8px}
+.refs .note{color:var(--ink-faint);font-size:15px;margin-bottom:24px}
+.refs ol{list-style:none;counter-reset:r}
+.refs li{counter-increment:r;position:relative;padding:14px 0 14px 42px;border-bottom:1px solid var(--rule);font-size:16.5px;color:var(--ink-soft);line-height:1.5}
+.refs li::before{content:counter(r);position:absolute;left:0;top:15px;font-family:var(--mono);font-size:12px;color:var(--gold)}
+.refs li b{color:var(--ink);font-weight:600}
+.refs li i{font-style:italic}
+footer{max-width:var(--measure);margin:0 auto;padding:8vh 26px 12vh;text-align:center;color:var(--ink-faint);font-family:var(--mono);font-size:13px;letter-spacing:.04em;line-height:1.9}
+footer .big{font-family:var(--display);font-style:italic;font-size:28px;color:var(--ink);letter-spacing:0;margin-bottom:18px}
+@media(max-width:680px){body{font-size:19px}p.dropcap::first-letter{font-size:4.2em}}
+
+/* click-to-show derivation */
+details.deriv{margin:2vh auto 0;max-width:46ch;border-top:1px solid rgba(35,32,26,.14);padding-top:12px}
+details.deriv>summary{cursor:pointer;list-style:none;font-family:var(--mono);font-size:13px;letter-spacing:.03em;color:var(--gold)}
+details.deriv>summary::-webkit-details-marker{display:none}
+details.deriv>summary::before{content:"\25B6  ";font-size:10px}
+details.deriv[open]>summary::before{content:"\25BC  "}
+details.deriv .ds{font-family:var(--body);font-size:16px;line-height:1.55;color:#4f4a40;margin:9px 0 0}
+details.deriv .ds .dn{display:inline-block;min-width:16px;font-family:var(--mono);color:var(--gold);font-weight:600}
+details.deriv .ds b{color:#23201a}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<button id="tocbtn">Contents</button>
+<nav id="toc"><span class="close">✕ close</span><h3>Contents</h3><ol id="toclist"></ol></nav>
+
+<header class="mast">
+  <div class="eyebrow">Summer ESG Module · Valuation · A reading</div>
+  <h1>Why Value <em>Moves</em></h1>
+  <div class="dek">Discount rates, the stochastic discount factor, and where ESG enters.</div>
+  <div class="credit"><span><b>Jae Yung Kim</b></span><span>University of Exeter</span><span>≈ 20 min read</span></div>
+  <p class="abstract">A market's price relative to its dividends swings enormously, decade after decade. Ask why, and most people reach for a story about growth. The data say something stranger: almost <em>all</em> of that movement is discount rates — the rate at which investors discount the same cash flows — and almost none is changing growth. This reading builds the machine behind that fact, the stochastic discount factor, shows that it moves over time, and ends where ESG enters valuation: not as a footnote on the cash flows, but as a force on the discount rate itself.</p>
+</header>
+
+<article id="doc">
+
+<!-- ===================== PROLOGUE ===================== -->
+<section class="part" data-toc="Prologue · the puzzle">
+<div class="pnum">Prologue</div>
+<h2>One number, swinging <em>wildly</em></h2>
+
+<p class="dropcap"><strong>The price–dividend ratio</strong> of the U.S. stock market — the price you pay for each dollar of dividends — is not a stable number. It has wandered from single digits to the high tens and back, over and over, for more than a century. The same is true of the cyclically-adjusted price–earnings ratio you may have seen plotted in the financial press. Valuations move, a lot, and the central question of this reading is the most natural one you could ask about them: when a market's price is high relative to its dividends, <em>why</em>?</p>
+
+<p>There are two stories, and almost everyone instinctively tells the first.</p>
+
+<div class="consider"><div class="lab">Consider this</div>
+<p>A market's price is high relative to its dividends. Is it because investors expect <strong>high future growth</strong> in those dividends — value moving with the numerator? Or because investors will accept <strong>low future returns</strong> on the asset — value moving with the denominator? Commit to one before reading on.</p></div>
+
+<p>The first story — call it the <span class="term">cash-flow story</span> — is the one taught implicitly in every introductory valuation course: a high price reflects bright prospects, expected growth in profits and payouts. The second — the <span class="term">discount-rate story</span> — says something less intuitive: a high price reflects a low <em>required return</em>, investors content to hold the asset for less. The two are not flavours of the same idea; they point in opposite directions, and the rest of this reading is about which one the world actually runs on.</p>
+</section>
+
+<!-- ===================== PART 1 ===================== -->
+<section class="part" data-toc="1 · The stochastic discount factor">
+<div class="pnum">Part One</div>
+<h2>The fundamental equation: <em>P = E[m·x]</em></h2>
+
+<p class="lede">Everyone agrees on the starting point. The value of an asset is its expected, discounted cash flow.</p>
+
+<div class="eqn">P<sub>t</sub> = E<sub>t</sub> <span class="b">[ &Sigma;<sub>j</sub> M<sub>t,t+j</sub> · D<sub>t+j</sub> ]</span>
+<span class="cap">D = cash flows &nbsp;·&nbsp; M = the discount factor</span></div>
+
+<p>The cash flows <span class="num">D</span> are what every analyst spends their time forecasting. The interesting object is the other one: <span class="tk">M</span>, the discount factor — how a dollar arriving in some future period, in some particular state of the world, is worth today. The whole of asset pricing is one question about it: <em>what is M, and does it move?</em></p>
+
+<p>To see its structure, strip the problem to a single period. For <em>any</em> asset, with payoff <span class="num">x</span> next period and price <span class="num">p</span> today, there is one equation that holds:</p>
+
+<div class="eqn"><span class="b">p<sub>t</sub> = E<sub>t</sub>[ m<sub>t+1</sub> · x<sub>t+1</sub> ]</span></div>
+
+<p>This is the central equation of asset pricing, and <span class="tk">m</span> is the <span class="term">stochastic discount factor</span> — the SDF, sometimes called the pricing kernel. It looks abstract until you say what it means in words, at which point it becomes almost obvious.</p>
+
+<h3 class="sec"><span class="marker">The intuition</span>What <em>m</em> is, in plain language</h3>
+
+<p>The SDF is how much you value an extra dollar next period — <em>state by state.</em> In a bad state of the world, a recession where you are poorer and more anxious, an extra dollar is precious: your marginal utility is high, and so <span class="num">m</span> is <strong>high</strong>. In a good state, a boom where you are already rich, an extra dollar is just another dollar: marginal utility is low, and <span class="num">m</span> is <strong>low</strong>. That single asymmetry — a dollar worth more when times are bad — is the seed from which every risk premium grows.</p>
+
+<figure data-fig="sdf">
+<div class="chartbox"><div class="chart-slot" data-chart="sdf"></div></div>
+<figcaption><span class="fnum">Figure 1</span>The stochastic discount factor is the marginal value of a dollar, state by state: high in bad states (a recession, when marginal utility is high) and low in good states (a boom). Everything that follows about risk premia is a consequence of this one picture.</figcaption></figure>
+
+<p>Why does that asymmetry create a risk premium? Take the central equation, use it for a gross return, and rearrange. The expected excess return on any asset comes out as</p>
+
+<div class="eqn">E<sub>t</sub>[R<sup>i</sup>] &minus; R<sup>f</sup> = &minus;R<sup>f</sup> · cov<sub>t</sub>(<span class="b">m</span>, R<sup>i</sup>)
+<span class="cap">the risk premium is a covariance with the discount factor</span></div>
+
+<details class="deriv">
+<summary>Show the derivation &mdash; why &minus;R<sup>f</sup>&middot;cov, in four lines</summary>
+<div class="ds"><span class="dn">0</span>In gross returns R<sup>i</sup>=x/P, the price equation P=E[m&middot;x] is just <b>E[m&middot;R<sup>i</sup>]=1</b> for every asset.</div>
+<div class="ds"><span class="dn">1</span>Risk-free asset: E[m&middot;R<sup>f</sup>]=R<sup>f</sup>&middot;E[m]=1, so <b>E[m]=1/R<sup>f</sup></b>.</div>
+<div class="ds"><span class="dn">2</span>Any asset: 1=E[m&middot;R<sup>i</sup>]=E[m]&middot;E[R<sup>i</sup>]+cov(m,R<sup>i</sup>).</div>
+<div class="ds"><span class="dn">3</span>Solve and use 1/E[m]=R<sup>f</sup>: &nbsp;<b>E[R<sup>i</sup>]&minus;R<sup>f</sup>=&minus;R<sup>f</sup>&middot;cov(m,R<sup>i</sup>)</b>.</div>
+</details>
+
+<p>Read it through the picture. An asset that pays off in <em>bad</em> states — that is high exactly when <span class="num">m</span> is high — has a positive covariance with the SDF, and the formula hands it a <em>negative</em> risk premium. It is <span class="tk">insurance</span>: you happily accept a low expected return for something that delivers when you most need it. An asset that pays off in <em>good</em> states — high when <span class="num">m</span> is low — is the opposite: it is risky, it lets you down when times are bad, and you demand a premium to hold it. The discount rate on an asset is just the risk-free rate plus this risk premium.</p>
+
+<h3 class="sec"><span class="marker">A worked example</span>Identical cash flows, <em>opposite</em> returns</h3>
+
+<p>Numbers make the kernel concrete. Take a three-state world — a bad state, a normal one, a boom — with the probabilities and an SDF that is high precisely when times are bad. Its mean fixes the risk-free rate through <span class="num">R<sup>f</sup> = 1/E[m]</span>, and the products <span class="num">π·m</span> are the weights that do the pricing.</p>
+
+<div class="tablewrap"><table class="data"><caption><span class="fnum">Table 1</span>A three-state world. With <span class="num">E[m] = 0.96</span>, the risk-free rate is <span class="num">R<sup>f</sup> = 1/0.96 − 1 ≈ 4.2%</span>. The pricing weights are <span class="num">π·m</span>.</caption>
+<thead><tr><th>state</th><th style="text-align:right">prob π</th><th style="text-align:right">SDF m</th><th style="text-align:right">weight π·m</th></tr></thead><tbody>
+<tr><td>Bad (recession)</td><td class="n">0.20</td><td class="n key">1.50</td><td class="n">0.30</td></tr>
+<tr><td>Normal</td><td class="n">0.60</td><td class="n">0.90</td><td class="n">0.54</td></tr>
+<tr><td>Good (boom)</td><td class="n">0.20</td><td class="n">0.60</td><td class="n">0.12</td></tr>
+</tbody></table></div>
+
+<p>Now price two assets with <em>identical</em> expected payoffs of <span class="num">$100</span>. Asset A pays most in booms — <span class="num">50 / 100 / 150</span> across bad / normal / good — while asset B is its mirror, paying most in busts, <span class="num">150 / 100 / 50</span>. Apply <span class="num">p = E[m·x] = Σ (π·m)·x</span> with the weights above:</p>
+
+<div class="eqn" style="font-size:clamp(18px,2.4vw,24px)">P<sub>A</sub> = 0.30·50 + 0.54·100 + 0.12·150 = <span class="b">87</span> &nbsp;&nbsp;&nbsp; P<sub>B</sub> = 0.30·150 + 0.54·100 + 0.12·50 = <span class="b">105</span></div>
+
+<p>Identical average cash flows; different prices, and so <em>opposite</em> returns. Asset A — the risky one, paying off when you are already rich — is <em>cheap</em> at <span class="num">87</span>, an expected return of <span class="num">+14.9%</span> and a <em>positive</em> risk premium of <span class="num">+10.8%</span> over the 4.2% risk-free rate. Asset B pays you precisely when you are poor; it is <span class="tk">insurance</span>, so it is <em>expensive</em> at <span class="num">105</span>, an expected return of <span class="num">−4.8%</span> and a <em>negative</em> premium. The cash flows are the same — the discount rate did all the work. Keep these numbers: Part Five reprices asset A one last time, for greenness.</p>
+
+<div class="keyidea"><div class="lab">The upgrade that runs the rest</div>
+<p>Here is the move that makes valuations move. Risk aversion — the market's willingness to bear risk — is <strong>not constant</strong>. In bad times investors are frightened and demand a great deal to hold risk; in good times they are calm and demand little. So <span class="tk">m moves over time</span>. A time-varying discount factor means <strong>discount rates move</strong>, which means expected returns are <strong>predictable</strong>. This is the thesis of John Cochrane's <em>Discount Rates</em> <span class="cite">(JF 2011)</span> — and the next part puts it to the test.</p></div>
+</section>
+
+<!-- ===================== PART 2 ===================== -->
+<section class="part" data-toc="2 · Campbell–Shiller">
+<div class="pnum">Part Two</div>
+<h2>A high price must forecast <em>something</em></h2>
+
+<p class="lede">Before the data, one piece of algebra closes every exit. It turns the vague question "why is the price high?" into a forced choice.</p>
+
+<p>Start from the definition of a return — next period's price plus dividend, over this period's price, <span class="num">R<sub>t+1</sub> = (P<sub>t+1</sub>+D<sub>t+1</sub>)/P<sub>t</sub></span> — take logs, linearise around the mean, and iterate forward. Campbell and Shiller did this in 1988, and what falls out is an identity. Writing <span class="num">dp = log(D/P)</span> for the log dividend–price ratio and <span class="num">&rho; &asymp; 0.96</span> for a constant:</p>
+
+<div class="eqn" style="font-size:clamp(19px,2.6vw,25px)">dp<sub>t</sub> &asymp; &Sigma; &rho;<sup>j&minus;1</sup> r<sub>t+j</sub> &nbsp;&minus;&nbsp; &Sigma; &rho;<sup>j&minus;1</sup> &Delta;d<sub>t+j</sub> &nbsp;+&nbsp; &rho;<sup>k</sup> dp<sub>t+k</sub>
+<span class="cap">future returns &nbsp;·&nbsp; future dividend growth &nbsp;·&nbsp; future price/dividend</span></div>
+
+<p>The point is not the formula's appearance but its <em>logical status</em>: it is not a theory that might be wrong, it is <strong>algebra</strong> that cannot be. And it says that a high price today — a low <span class="num">dp</span> — is only possible if one of exactly three things is true. Either future returns are low (the discount-rate story), or future dividend growth is high (the cash-flow story), or the price–dividend ratio simply keeps climbing forever, which is a rational bubble. Something has to give.</p>
+
+<div class="consider"><div class="lab">Consider this</div>
+<p>The identity is airtight, so the data cannot wriggle out: a century of high and low prices <em>must</em> line up with low and high subsequent returns, or with high and low subsequent growth. Which channel does the data actually use — returns, or growth?</p></div>
+</section>
+
+<!-- ===================== PART 3 ===================== -->
+<section class="part" data-toc="3 · The data">
+<div class="pnum">Part Three</div>
+<h2>It is discount rates, not <em>growth</em></h2>
+
+<p class="lede">The answer is lopsided enough to be worth stating plainly before the evidence: essentially all of the movement in valuations is discount rates, and essentially none is growth.</p>
+
+<p>Begin with the simplest test. Regress future returns on today's dividend yield — when the yield is high (prices low), are subsequent returns high? They are, and increasingly so as the horizon lengthens.</p>
+
+<div class="tablewrap"><table class="data"><caption><span class="fnum">Table 2</span>Predictive regression of future returns on today's dividend yield, <span class="num">r = a + b·(D/P)</span>. The coefficient and the fraction of variation explained both rise sharply with the horizon.</caption>
+<thead><tr><th>Horizon</th><th style="text-align:right">b</th><th style="text-align:right">t(b)</th><th style="text-align:right">R²</th></tr></thead><tbody>
+<tr><td>1 year</td><td class="n">3.4</td><td class="n">2.5</td><td class="n">0.07</td></tr>
+<tr><td>5 years</td><td class="n key">18.0</td><td class="n">3.5</td><td class="n key">0.22</td></tr>
+</tbody></table></div>
+
+<p>Read the table the other way around and it is unsettling: a <em>high price today reliably precedes years of low returns.</em> The same fact is easier to feel as a picture. Plot the dividend yield — which you can read as "prices, upside down," high when prices are low — against the return that actually followed over the next several years, and the two track each other.</p>
+
+<figure class="wide" data-fig="cochrane1">
+<div class="chartbox"><div class="chart-slot" data-chart="cochrane1"></div></div>
+<figcaption><span class="fnum">Figure 2</span>The dividend yield (blue, dashed) and the <em>following</em> seven-year return (orange) move together over the post-war period. High prices around 2000 preceded a stretch of poor returns; low prices around 1980 preceded high ones. This is the signature of the discount-rate story. <span class="cite">Redraw of Cochrane (JF 2011), Fig. 1.</span></figcaption></figure>
+
+<p>The regression shows returns are forecastable; the decomposition shows it is the <em>whole</em> story. Split the historical variation of the price–dividend ratio into the two channels of the Campbell–Shiller identity, and the accounting is stark.</p>
+
+<figure data-fig="decomp">
+<div class="chartbox"><div class="chart-slot" data-chart="decomp"></div></div>
+<figcaption><span class="fnum">Figure 3</span>What moves the price–dividend ratio? Of its historical variation, essentially <span class="num">100%</span> is accounted for by future returns (discount rates) and essentially <span class="num">0%</span> by future dividend growth. Valuations move on the denominator, not the numerator. <span class="cite">Cochrane (JF 2011); long-run regression / VAR.</span></figcaption></figure>
+
+<div class="keyidea"><div class="lab">The conclusion</div>
+<p>The cash-flow story loses, and not narrowly. Market valuations move because <strong>discount rates move</strong> — about 100% of the variation — and almost not at all because growth expectations change. When you see a price rise, the safe bet is that the market has lowered the rate at which it discounts the <em>same</em> cash flows, not that it has discovered new ones.</p></div>
+</section>
+
+<!-- ===================== PART 4 ===================== -->
+<section class="part" data-toc="4 · Why they move">
+<div class="pnum">Part Four</div>
+<h2>Why discount rates <em>move</em></h2>
+
+<p class="lede">Two facts deepen the result. The same pattern appears in every asset class, and it traces back to a single economic force: the willingness to bear risk rises and falls with the economy.</p>
+
+<p>"High valuation precedes low subsequent return" is not a quirk of the stock market. The yield curve forecasts bond returns; credit spreads forecast corporate-bond returns; interest-rate differentials forecast currency returns; and — the example worth dwelling on — the price-to-rent ratio forecasts housing returns. The old intuition about houses is exactly the cash-flow story ("prices are high because rents will grow"), and exactly as in the stock market, it is wrong: a high price-to-rent ratio predicts <em>lower</em> future housing returns.</p>
+
+<figure class="wide" data-fig="pricerent">
+<div class="chartbox"><div class="chart-slot" data-chart="pricerent"></div></div>
+<figcaption><span class="fnum">Figure 4</span>Housing tells the stock-market story again. Price (orange) runs ahead of rent (blue) and then falls back; the high price/rent ratio of the mid-2000s forecast poor subsequent housing returns, not faster rent growth. <span class="cite">Redraw of Cochrane (JF 2011), Fig. 2.</span></figcaption></figure>
+
+<p>So <em>why</em> do discount rates move, everywhere at once? Because the price of risk is <span class="term">countercyclical</span>. In good times investors are confident and calm, willing to hold risk cheaply, so prices are high and expected returns low. In bad times they are frightened, demand a steep premium to bear risk, prices fall, and subsequent returns are high. You can see this in the data through the consumption-based habit models that motivate it: the market's valuation moves together with how good consumers feel relative to their recent habits, peaking in booms and crashing in busts.</p>
+
+<figure class="wide" data-fig="habit">
+<div class="chartbox"><div class="chart-slot" data-chart="habit"></div></div>
+<figcaption><span class="fnum">Figure 5</span>The price–dividend ratio (blue) and a measure of how good consumption feels relative to habit (orange) rise and fall together — high and calm in good times, collapsing together in a downturn. Investment and book-to-market ratios trace the same cycle. <span class="cite">Redraws of Cochrane (JF 2011), Figs. 11–12.</span></figcaption></figure>
+
+<h3 class="sec"><span class="marker">The same asset, two moods</span>Watching a discount rate move</h3>
+
+<p>One more number, to see the movement directly. Take a single risky asset — payoffs <span class="num">50 / 100 / 150</span>, expected payoff <span class="num">$100</span> — and price it on two dates that differ in nothing but <em>risk appetite</em>. On a calm date the SDF is mild; on a fearful date it is far more volatile (high in the bad state, low in the good), which is exactly what a high price of risk looks like.</p>
+
+<div class="tablewrap"><table class="data"><caption><span class="fnum">Table 3</span>The same asset, priced under two moods. The SDF is <span class="num">(1.20, 0.95, 0.80)</span> when calm and <span class="num">(1.90, 0.82, 0.50)</span> when fearful; only risk aversion changes.</caption>
+<thead><tr><th></th><th style="text-align:right">price</th><th style="text-align:right">E[R]</th><th style="text-align:right">risk premium</th><th style="text-align:right">R<sup>f</sup></th></tr></thead><tbody>
+<tr><td>Calm — low risk aversion</td><td class="n">93</td><td class="n">+7.5%</td><td class="n">+4.4%</td><td class="n">3.1%</td></tr>
+<tr><td>Fear — high risk aversion</td><td class="n key">83</td><td class="n up">+20.2%</td><td class="n">+17.3%</td><td class="n">2.9%</td></tr>
+</tbody></table></div>
+
+<p>The price falls from <span class="num">93</span> to <span class="num">83</span> on nothing but fear. Crucially, the risk-free rate barely moves (<span class="num">3.1% → 2.9%</span>), so this is a pure <em>risk-premium</em> move, not a rate move — and the lower price is mechanically a <em>higher</em> expected return going forward. A low price predicts high returns. The cross-section of Part One (A versus B) and this time series are the same machine, <span class="num">m</span>, doing both jobs.</p>
+
+<div class="keyidea"><div class="lab">The conclusion</div>
+<p>Discount rates move because <strong>risk premia are time-varying and countercyclical</strong> — low when the economy is confident, high when it is fearful — and they do so across every asset class at once. The "denominator" of every valuation is not a fixed number from a textbook; it is a living price of risk that breathes with the economy.</p></div>
+</section>
+
+<!-- ===================== PART 5 ===================== -->
+<section class="part" data-toc="5 · ESG, priced">
+<div class="pnum">Part Five</div>
+<h2>ESG as a <em>priced</em> factor</h2>
+
+<p class="lede">Now the payoff. Once you see valuation as discount rates rather than cash flows, the right question about ESG changes — and the answer is where modern sustainable-finance theory lives.</p>
+
+<p>Look again at the fundamental equation, <span class="num">P = E[&Sigma; M·D]</span>. ESG can move either piece. It can change the <em>cash flows</em> <span class="num">D</span> — through physical and regulatory risks, through demand for green products — and that is the channel everyone reaches for first. But it can also change the <em>discount factor</em> <span class="num">M</span>, the required return, the cost of capital. That second channel is the deeper one, the one the asset-pricing machine of the previous parts bites on, and it operates in three distinct ways.</p>
+
+<h3 class="sec"><span class="marker">Channel 1 · tastes</span>Green tastes lower the cost of capital</h3>
+<p>Suppose some investors derive <em>utility</em> from holding green assets, over and above the money. Then they will accept a lower expected return on green firms — and a lower required return is, mechanically, a lower cost of capital and a higher valuation, for the very same cash flows. Brown firms face the mirror image: a higher cost of capital. Pástor, Stambaugh and Taylor work this out in equilibrium <span class="cite">(JFE 2021)</span>, and add a subtlety worth holding onto: as tastes shift toward green, green assets can <em>outperform</em> for a while, even though their <em>expected</em> returns going forward are lower. Greenness is priced.</p>
+
+<div class="eqn">E[R<sub>i</sub>] &minus; R<sup>f</sup> = β<sub>i</sub> λ <span style="color:var(--ink-faint)">&minus;</span> <span class="b">δ g<sub>i</sub></span>
+<span class="cap">g = greenness &nbsp;·&nbsp; δ = the greenium, the green expected-return wedge</span></div>
+
+<p>The first term <span class="num">β<sub>i</sub>λ</span> is the ordinary price of risk from the previous parts; the new piece is the wedge <span class="num">&minus;δg<sub>i</sub></span>, which pulls a green firm's required return <em>below what its risk alone would justify.</em> Make it numeric by repricing asset A from the worked example. A had price <span class="num">87</span> and expected return <span class="num">14.9%</span>; grant it a green taste worth <span class="num">δ = 3%</span> of return, lowering its required return to <span class="num">11.9%</span>:</p>
+
+<div class="eqn" style="font-size:clamp(18px,2.4vw,24px)">P<sub>G</sub> = E[x] / (1 + E[R<sub>G</sub>]) &asymp; <span class="b">89.3</span> &nbsp;&nbsp;(versus A's 87)</div>
+
+<p>Same <span class="num">$100</span> cash flows, a higher price and a lower cost of capital — purely because investors accept less in return for the green benefit. And here is the rigour to guard: the kernel <span class="num">m</span> is <em>unchanged.</em> The very same SDF still prices A, B and this green G; ESG does not hand green its own discount factor. The taste moves <em>this asset's</em> required return — a non-risk wedge sitting on top of the common kernel. One <span class="num">m</span>; a lower discount rate for green.</p>
+
+<div class="consider"><div class="lab">The greenium puzzle — and its resolution</div>
+<p>This sets up a genuine tension. Through the 2010s green stocks <em>outperformed</em> brown — yet the theory just said green should earn <em>less.</em> Both are true, and the discount-rate lens reconciles them. A <em>rising</em> taste for green lowers green's discount rate, which lifts its price <em>now</em> and lowers its expected return <em>later</em>; the realised outperformance <em>was</em> that re-pricing — an unexpected rise in climate concern capitalised into green valuations. It is exactly Parts One to Three, now in the cross-section: a high price implies a low subsequent return. <span class="cite">Pástor, Stambaugh &amp; Taylor, "Dissecting Green Returns" (JFE 2022).</span></p></div>
+
+<h3 class="sec"><span class="marker">Channel 2 · risk</span>Carbon is a risk that pays a premium</h3>
+<p>Now suppose instead that carbon exposure is a genuine <em>risk</em> — of transition, stranded assets, abrupt policy — that investors must be compensated to bear. Then high-carbon firms should earn <em>higher</em> average returns: a <span class="term">carbon premium</span>. Bolton and Kacperczyk find exactly this <span class="cite">(JFE 2021)</span>. Notice the destination is the same as Channel 1 for brown firms: a higher discount rate. Tastes pull down green's required return; carbon risk pushes up brown's. Both widen the cost-of-capital gap between green and brown.</p>
+
+<div class="eqn" style="font-size:clamp(17px,2.3vw,23px)">R<sub>i,t</sub> &minus; R<sup>f</sup> = a + <span class="b">λ</span> · Emissions<sub>i,t&minus;1</sub> + γ&prime; Controls + ε
+<span class="cap">λ &gt; 0 — a premium on the <em>level</em> of total emissions, and on their growth</span></div>
+
+<p>The premium attaches to a firm's <em>total</em> emissions and their growth, not to emissions <em>intensity</em> — a distinction that matters once you try to build the portfolio that harvests it.</p>
+
+<h3 class="sec"><span class="marker">Channel 3 · the frontier</span>ESG as signal and as preference</h3>
+<p>The third channel asks a <em>different question.</em> Channels One and Two are about prices — why green and brown firms come to be valued differently. Pedersen, Fitzgibbons and Pomorski instead ask how an investor should <em>build a portfolio</em>, recognising that ESG can be two things at once. It can be a <em>signal</em> — if ESG scores predict future fundamentals, using them raises the Sharpe ratio you can achieve. And it can be a <em>preference</em> — if investors are willing to pay for ESG, they will trade some Sharpe ratio to get it. They combine these into the <span class="term">ESG-efficient frontier</span> <span class="cite">(JFE 2021)</span>: the best attainable Sharpe ratio at each level of ESG, which rises as ESG informs, peaks at an interior level, and then declines as investors pay for ESG beyond what the information justifies. The frontier is a <em>portfolio</em> result, but its shape is set by the two discount-rate channels above — the rising part is the signal (Channels One and Two from the investor's seat), the falling part is the taste (PST).</p>
+
+<figure data-fig="frontier">
+<div class="chartbox"><div class="chart-slot" data-chart="frontier"></div></div>
+<figcaption><span class="fnum">Figure 6</span>The ESG-efficient frontier: the maximum attainable Sharpe ratio at each ESG level. It rises while ESG is a useful signal, peaks at an interior ESG level, and falls beyond it as investors sacrifice return to hold more ESG. <span class="cite">Pedersen, Fitzgibbons &amp; Pomorski (JFE 2021).</span></figcaption></figure>
+
+<div class="tablewrap"><table class="data"><caption><span class="fnum">Table 4</span>The two channels in one frame. Taste lowers green's required return; carbon risk raises brown's; both move the discount rate the same way and the valuation the opposite way.</caption>
+<thead><tr><th></th><th style="text-align:center;color:var(--green)">green / high-ESG</th><th style="text-align:center;color:var(--coral)">brown / low-ESG</th></tr></thead><tbody>
+<tr><td class="rh">taste channel (PST)</td><td class="n" style="text-align:center">lower required return</td><td class="n" style="text-align:center">—</td></tr>
+<tr><td class="rh">risk channel (BK)</td><td class="n" style="text-align:center">—</td><td class="n" style="text-align:center">higher risk premium</td></tr>
+<tr><td class="rh"><b>discount rate</b></td><td class="n up" style="text-align:center">lower</td><td class="n dn" style="text-align:center">higher</td></tr>
+<tr><td class="rh"><b>valuation (same CFs)</b></td><td class="n up" style="text-align:center">higher</td><td class="n dn" style="text-align:center">lower</td></tr>
+</tbody></table></div>
+
+<div class="keyidea"><div class="lab">The conclusion — and a caveat to keep</div>
+<p>Step back and the whole of Part Five collapses to one line: Parts One to Four showed the discount rate moving <em>over time</em>; ESG is that same discount rate varying <em>across firms</em>, by greenness — the same machine, a new axis. So ESG is <strong>priced into the discount rate</strong>: green firms tend to carry a lower cost of capital and a higher valuation, brown firms the reverse. But hold the subtlety that trips most people: a "lower discount rate" means lower <em>expected</em> returns going forward — <em>not</em> necessarily lower <em>realised</em> returns while the market is still re-pricing. Green can deliver high realised returns precisely <em>as</em> it becomes expensive. Steady states and transitions are different animals; do not confuse them.</p></div>
+</section>
+
+<!-- ===================== PART 6 ===================== -->
+<section class="part" data-toc="6 · The bridge">
+<div class="pnum">Part Six</div>
+<h2>Where ESG meets the <em>DCF</em></h2>
+
+<p class="lede">All of this lands in one place in a practical valuation — the discount rate — which is exactly where the theory meets the valuation practice.</p>
+
+<p>A discounted-cash-flow valuation has a single line where everything we have discussed must enter:</p>
+
+<div class="eqn" style="font-size:clamp(19px,2.6vw,25px)">V<sub>0</sub> = &Sigma;<sub>t</sub> FCF<sub>t</sub> / (1 + <span class="b">WACC</span>)<sup>t</sup>,
+<span class="cap">WACC = (E/V)·R<sub>e</sub> + (D/V)·R<sub>d</sub>(1&minus;T<sub>c</sub>)</span></div>
+
+<p>The cash flows go in the numerator; everything else — the time-varying price of risk, the ESG taste and risk channels — enters through the <span class="tk">discount rate</span>, the WACC, and specifically through the cost of equity. That is the disciplined place to put a view about sustainability into a valuation: not as a vague haircut on profits, but as a defensible adjustment to the rate at which those profits are discounted. In the valuation practice we build exactly that DCF, on a real, just-listed company — SpaceX.</p>
+
+<blockquote class="center">Value moves because discount rates move. ESG is one of the forces that moves them.</blockquote>
+
+<p>If only five claims survive, let these be the ones. First, market valuations move on discount rates, not on changing growth — roughly 100% versus 0%. Second, the discount rate is the stochastic discount factor, and it is <em>time-varying</em>, which is why returns are predictable. Third, it moves with risk appetite and the economy, countercyclically, across every asset class. Fourth, ESG is priced into that discount rate: tastes lower green's cost of capital, carbon risk raises brown's. And fifth, ESG valuation is therefore the disciplined adjustment of a <em>discount rate</em> — the work we turn to next.</p>
+</section>
+
+<!-- ===================== REFERENCES ===================== -->
+<section class="refs" data-toc="References">
+<h2>References</h2>
+<p class="note">Sources are the leading economics and finance journals; the asset-pricing backbone is Cochrane's address and the Campbell–Shiller decomposition, and the ESG-pricing frontier is the 2021 <i>Journal of Financial Economics</i> cluster.</p>
+<ol>
+<li>Campbell, J. Y. &amp; Shiller, R. J. (1988). The Dividend–Price Ratio and Expectations of Future Dividends and Discount Factors. <i>Review of Financial Studies</i>, 1(3), 195–228.</li>
+<li>Cochrane, J. H. (2011). Presidential Address: Discount Rates. <i>Journal of Finance</i>, 66(4), 1047–1108.</li>
+<li>Pástor, Ľ., Stambaugh, R. F. &amp; Taylor, L. A. (2021). Sustainable Investing in Equilibrium. <i>Journal of Financial Economics</i>, 142(2), 550–571.</li>
+<li>Pástor, Ľ., Stambaugh, R. F. &amp; Taylor, L. A. (2022). Dissecting Green Returns. <i>Journal of Financial Economics</i>, 146(2), 403–424.</li>
+<li>Pedersen, L. H., Fitzgibbons, S. &amp; Pomorski, L. (2021). Responsible Investing: The ESG-Efficient Frontier. <i>Journal of Financial Economics</i>, 142(2), 572–597.</li>
+<li>Bolton, P. &amp; Kacperczyk, M. (2021). Do Investors Care About Carbon Risk? <i>Journal of Financial Economics</i>, 142(2), 517–549.</li>
+</ol>
+</section>
+
+</article>
+
+<footer>
+<div class="big">Next: the SpaceX (SPCX) valuation practice.</div>
+Why Value Moves · Discount rates, the SDF &amp; ESG · Summer ESG Module · Jae Yung Kim · 2026
+</footer>
+
+<script>
+const C = {
+  bars(s){const W=520,H=s.h||300,p={t:22,r:14,b:46,l:20},min=s.min!=null?s.min:0,max=s.max,
+    y=v=>p.t+(max-v)/(max-min)*(H-p.t-p.b),z=y(0),g=s.groups,sw=(W-p.l-p.r)/g.length;
+    let o=`<svg viewBox="0 0 ${W} ${H}" class="chart">`,d=0;
+    o+=`<line class="zero" x1="${p.l}" y1="${z}" x2="${W-p.r}" y2="${z}"/>`;
+    if(s.ylabel)o+=`<text class="axlbl cpop" x="${p.l-4}" y="${p.t-7}">${s.ylabel}</text>`;
+    g.forEach((G,gi)=>{const bw=Math.min(70,(sw-26)/G.bars.length),x0=p.l+sw*gi+(sw-bw*G.bars.length-(G.bars.length-1)*10)/2;
+      G.bars.forEach((b,bi)=>{const x=x0+bi*(bw+10),yv=y(b.v),top=Math.min(yv,z),h=Math.abs(yv-z)||2,pos=b.v>=0;
+        o+=`<rect class="bar ${pos?'pos':'neg'}" x="${x}" y="${top}" width="${bw}" height="${h}" rx="2" fill="${b.color}" style="animation-delay:${d}s"/>`;
+        o+=`<text class="vlbl cpop" x="${x+bw/2}" y="${pos?top-9:top+h+19}" text-anchor="middle" fill="${b.color}" style="animation-delay:${d+.25}s">${b.label}</text>`;d+=.12;});
+      o+=`<text class="clbl cpop" x="${p.l+sw*gi+sw/2}" y="${H-p.b+26}" text-anchor="middle" style="animation-delay:${d+.1}s">${G.label}</text>`;});
+    if(s.foot)o+=`<text class="note cpop" x="${W/2}" y="${H-6}" text-anchor="middle" fill="var(--ink-faint)" style="animation-delay:${d+.3}s">${s.foot}</text>`;
+    return o+`</svg>`;},
+  duo(s){const W=520,H=s.h||300,p={t:24,r:18,b:46,l:24},xr=s.xr,yr=s.yr,
+    X=x=>p.l+(x-xr[0])/(xr[1]-xr[0])*(W-p.l-p.r),Y=y=>H-p.b-(y-yr[0])/(yr[1]-yr[0])*(H-p.t-p.b);
+    let o=`<svg viewBox="0 0 ${W} ${H}" class="chart">`;const yb=Y(yr[0]);
+    o+=`<line class="ax" x1="${p.l}" y1="${yb}" x2="${W-p.r}" y2="${yb}"/>`;
+    if(s.xlabel)o+=`<text class="axlbl cpop" x="${W-p.r}" y="${yb+24}" text-anchor="end">${s.xlabel}</text>`;
+    if(s.ylabel)o+=`<text class="axlbl cpop" x="${p.l-2}" y="${p.t+2}">${s.ylabel}</text>`;
+    s.series.forEach((ser,si)=>{const P=ser.pts.map(q=>[X(q[0]),Y(q[1])]);let d=`M ${P[0][0]} ${P[0][1]}`;
+      for(let i=0;i<P.length-1;i++){const a=P[i],b=P[i+1],mx=(a[0]+b[0])/2;d+=` C ${mx} ${a[1]} ${mx} ${b[1]} ${b[0]} ${b[1]}`;}
+      o+=`<path class="draw" d="${d}" stroke="${ser.color}" stroke-width="3" fill="none" stroke-linecap="round" ${ser.dash?'stroke-dasharray="7 5"':''} style="animation-delay:${si*.35}s"/>`;
+      if(ser.label)o+=`<text class="vlbl cpop" x="${X(ser.lx)}" y="${Y(ser.ly)}" fill="${ser.color}" text-anchor="${ser.anchor||'start'}" style="animation-delay:${.9+si*.2}s">${ser.label}</text>`;});
+    return o+`</svg>`;},
+  curve(s){const W=520,H=s.h||300,p={t:22,r:20,b:46,l:30},xr=s.xr,yr=s.yr,
+    X=x=>p.l+(x-xr[0])/(xr[1]-xr[0])*(W-p.l-p.r),Y=y=>H-p.b-(y-yr[0])/(yr[1]-yr[0])*(H-p.t-p.b);
+    let o=`<svg viewBox="0 0 ${W} ${H}" class="chart">`;const yb=Y(yr[0]);
+    o+=`<line class="ax" x1="${p.l}" y1="${yb}" x2="${W-p.r}" y2="${yb}"/><line class="ax" x1="${X(xr[0])}" y1="${p.t}" x2="${X(xr[0])}" y2="${yb}"/>`;
+    if(s.xlabel)o+=`<text class="axlbl cpop" x="${W-p.r}" y="${yb+24}" text-anchor="end">${s.xlabel}</text>`;
+    if(s.ylabel)o+=`<text class="axlbl cpop" x="${X(xr[0])-4}" y="${p.t+2}">${s.ylabel}</text>`;
+    let d="",f=true;for(let i=0;i<=80;i++){const xx=s.dom[0]+(s.dom[1]-s.dom[0])*i/80;d+=(f?'M':'L')+` ${X(xx).toFixed(1)} ${Y(s.f(xx)).toFixed(1)} `;f=false;}
+    o+=`<path class="draw" d="${d}" stroke="${s.color}" stroke-width="3.2" fill="none" stroke-linecap="round"/>`;
+    if(s.peak)o+=`<circle class="cpop" cx="${X(s.peak[0])}" cy="${Y(s.peak[1])}" r="4.5" fill="${s.color}" style="animation-delay:.9s"/><text class="vlbl cpop" x="${X(s.peak[0])}" y="${Y(s.peak[1])-12}" text-anchor="middle" fill="${s.color}" style="animation-delay:1s">${s.peakLbl||''}</text>`;
+    if(s.anno)s.anno.forEach((a,i)=>o+=`<text class="clbl cpop" x="${X(a.x)}" y="${Y(a.y)}" text-anchor="${a.anchor||'middle'}" style="animation-delay:${1+i*.15}s">${a.t}</text>`);
+    return o+`</svg>`;}
+};
+const CHARTS={
+  sdf:()=>C.bars({h:300,max:1.15,min:0,ylabel:"value of $1 next period (m)",groups:[
+    {label:"bad state · recession",bars:[{v:1.0,label:"HIGH",color:"var(--coral)"}]},
+    {label:"good state · boom",bars:[{v:0.34,label:"low",color:"var(--teal)"}]}],foot:"m = marginal value of a dollar, state by state"}),
+  cochrane1:()=>C.duo({h:300,xr:[0,10],yr:[-1.6,2.1],xlabel:"1950 → 2020",ylabel:"high D/P · high return",series:[
+    {color:"var(--teal)",dash:true,lx:3.2,ly:1.75,label:"4 × D/P",pts:[[0,.2],[1.4,.8],[2.6,0],[3.6,1.3],[4.6,.4],[5.8,-1.0],[6.6,-.2],[7.6,1.1],[8.6,.3],[9.8,.8]]},
+    {color:"var(--coral)",lx:9.8,ly:1.35,anchor:"end",label:"following 7-yr return",pts:[[0,.4],[1.4,1.0],[2.6,.2],[3.6,1.5],[4.6,.6],[5.8,-1.2],[6.6,-.4],[7.6,1.3],[8.6,.5],[9.8,1.0]]}]}),
+  decomp:()=>C.bars({h:300,max:1.15,min:-0.25,ylabel:"share of P/D variation",groups:[
+    {label:"discount rates",bars:[{v:1.01,label:"≈100%",color:"var(--gold)"}]},
+    {label:"cash-flow growth",bars:[{v:-0.11,label:"≈0%",color:"var(--coral)"}]}],foot:"value moves on the denominator, not the numerator"}),
+  pricerent:()=>C.duo({h:300,xr:[0,10],yr:[0,3.3],xlabel:"1960 → 2010",ylabel:"log",series:[
+    {color:"var(--teal)",lx:2.4,ly:1.0,label:"20 × Rent",pts:[[0,.5],[2.5,.9],[5,1.4],[7.5,1.9],[9.6,2.3]]},
+    {color:"var(--coral)",lx:7,ly:3.05,label:"Price",pts:[[0,.6],[2.5,1.0],[5,1.6],[7,2.6],[8.2,2.95],[9,2.3],[9.6,2.0]]}]}),
+  habit:()=>C.duo({h:300,xr:[0,10],yr:[0,2.6],xlabel:"1990 → 2010",ylabel:"co-moving",series:[
+    {color:"var(--teal)",lx:4.6,ly:2.35,label:"P/D",pts:[[0,.7],[2.6,1.5],[4.4,2.2],[6,1.0],[7,.2],[8.6,1.0],[9.6,1.3]]},
+    {color:"var(--coral)",lx:9.6,ly:1.55,anchor:"end",label:"surplus consumption",pts:[[0,.6],[2.6,1.3],[4.4,1.9],[6,.8],[7,.15],[8.6,.85],[9.6,1.15]]}]}),
+  frontier:()=>C.curve({h:300,xr:[0,1],yr:[0,1.05],xlabel:"ESG score →",ylabel:"max Sharpe ratio",color:"var(--violet)",
+    dom:[0.04,0.96],f:x=>Math.max(0.05,0.92-3.0*(x-0.42)*(x-0.42)),peak:[0.42,0.92],peakLbl:"peak Sharpe",
+    anno:[{x:0.78,y:0.30,t:"trade return for ESG"}]})
+};
+document.querySelectorAll(".chart-slot").forEach(el=>{const k=el.dataset.chart;if(CHARTS[k])el.innerHTML=CHARTS[k]();});
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("shown");io.unobserve(e.target);}}),{threshold:.2,rootMargin:"0px 0px -10% 0px"});
+document.querySelectorAll("figure").forEach(f=>io.observe(f));
+
+const bar=document.getElementById("bar");
+addEventListener("scroll",()=>{const h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%";},{passive:true});
+
+const toc=document.getElementById("toc"),list=document.getElementById("toclist");
+const secs=[...document.querySelectorAll("[data-toc]")];
+secs.forEach((s,i)=>{s.id="s"+i;const li=document.createElement("li");li.innerHTML=`<a href="#s${i}">${s.dataset.toc}</a>`;list.appendChild(li);});
+document.getElementById("tocbtn").onclick=()=>toc.classList.add("open");
+toc.querySelector(".close").onclick=()=>toc.classList.remove("open");
+toc.addEventListener("click",e=>{if(e.target.tagName==="A"||e.target===toc)setTimeout(()=>toc.classList.remove("open"),120);});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")toc.classList.remove("open");});
+
+const _qp=new URLSearchParams(location.search);
+if(_qp.has("still")){document.querySelectorAll("figure").forEach(f=>f.classList.add("shown"));
+  let st=document.createElement("style");st.textContent=".bar{transform:scaleY(1)!important;animation:none!important}.draw{stroke-dashoffset:0!important;animation:none!important}.cpop{opacity:1!important;transform:none!important;animation:none!important}figure .chartbox{opacity:1!important;transform:none!important}";document.head.appendChild(st);}
+</script>
+</body>
+</html>
